@@ -2,32 +2,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" sizes="32x32" href="logo.png">
+    <link rel="icon" sizes="32x32" href="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PlayCode India | Jio Enterprise</title>
+    <title>RCB X JIO PLAYCODE | Enterprise</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Google+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GOOGLE MATERIAL 3 DARK THEME --- */
+        /* --- RCB JERSEY THEME (RED & BLACK) --- */
         :root {
-            --md-sys-color-background: #090a0f; 
-            --md-sys-color-surface: #1E1F20;
-            --md-sys-color-surface-variant: #444746;
+            /* Pure Dark/Black Backgrounds */
+            --md-sys-color-background: #050505; 
+            --md-sys-color-surface: #111111;
+            --md-sys-color-surface-variant: #222222;
             --md-text-main: #E3E3E3;
             --md-text-muted: #9AA0A6;
             
-            --jio-blue: #0F3CB0;
-            --google-blue: #4285F4;
-            --google-red: #EA4335;
-            --google-yellow: #FBBC05;
-            --google-cyan: #00C6FF;
+            /* RCB Core Palette (No Blue) */
+            --rcb-red: #D71A21;
+            --rcb-black: #1A1A1A;
+            --rcb-gold: #E5A62B;
+            --playcode-accent: #EA4335;
             
-            --glass-bg: rgba(25, 25, 26, 0.45);
+            /* Glass Effect */
+            --glass-bg: rgba(15, 15, 15, 0.7);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-highlight: rgba(255, 255, 255, 0.12);
-            --shadow-elevation: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+            --shadow-elevation: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
             
             --font-display: 'Google Sans', sans-serif;
             --font-base: 'Inter', sans-serif;
@@ -49,20 +51,18 @@
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--md-sys-color-background); }
-        ::-webkit-scrollbar-thumb { background: var(--md-sys-color-surface-variant); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--rcb-red); border-radius: 10px; }
 
-        /* --- INNOVATIVE JIO-GOOGLE MESH & FLOATING LOGOS --- */
-        /* ADDED CSS CONTAINMENT FOR MAX PERFORMANCE */
+        /* --- RED & BLACK MESH --- */
         .ambient-wrapper {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             z-index: -1; overflow: hidden; pointer-events: none;
-            background: #090a0f;
+            background: #030303;
             contain: strict; 
         }
         
-        /* REMOVED MIX-BLEND-MODE (Heavy on Chrome) */
         .glow-orb {
-            position: absolute; border-radius: 50%; opacity: 0.4;
+            position: absolute; border-radius: 50%; opacity: 0.35;
             animation: floatMesh 20s infinite alternate ease-in-out;
             transform-origin: center center;
             will-change: transform;
@@ -70,15 +70,15 @@
             -webkit-backface-visibility: hidden;
         }
 
-        .glow-orb.jio { width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(15,60,176,0.35) 0%, transparent 70%); top: -20%; left: -10%; }
-        .glow-orb.g-blue { width: 45vw; height: 45vw; background: radial-gradient(circle, rgba(66,133,244,0.3) 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 25s; }
-        .glow-orb.g-red { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(234,67,53,0.2) 0%, transparent 70%); top: 20%; right: 10%; animation-delay: -12s; }
-        .glow-orb.g-cyan { width: 35vw; height: 35vw; background: radial-gradient(circle, rgba(0,198,255,0.15) 0%, transparent 70%); bottom: 20%; left: 15%; animation-delay: -8s; }
+        /* Pure Red and Black Orbs */
+        .glow-orb.rcb-red-main { width: 65vw; height: 65vw; background: radial-gradient(circle, rgba(215,26,33,0.25) 0%, transparent 70%); top: -15%; left: -15%; }
+        .glow-orb.rcb-black-main { width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(30,30,30,0.5) 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 25s; }
+        .glow-orb.rcb-red-acc { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(215,26,33,0.15) 0%, transparent 70%); bottom: 25%; right: 15%; animation-delay: -12s; }
+        .glow-orb.rcb-gold-acc { width: 35vw; height: 35vw; background: radial-gradient(circle, rgba(229,166,43,0.1) 0%, transparent 70%); top: 20%; right: 10%; animation-delay: -8s; }
 
-        /* REMOVED HEAVY CSS FILTERS FOR FLOATING LOGOS */
         .floating-logo {
             position: absolute; border-radius: 50%;
-            opacity: 0.04; 
+            opacity: 0.05; 
             pointer-events: none; z-index: 0;
             will-change: transform;
             backface-visibility: hidden;
@@ -86,16 +86,16 @@
         }
         .fl-1 { width: 140px; top: 15%; left: 8%; animation: floatLogo 35s infinite linear; }
         .fl-2 { width: 90px; top: 65%; left: 85%; animation: floatLogo 40s infinite linear reverse; }
-        .fl-3 { width: 180px; top: 75%; left: 15%; animation: floatLogo 45s infinite linear; }
+        .fl-3 { width: 160px; top: 75%; left: 15%; animation: floatLogo 45s infinite linear; }
         .fl-4 { width: 110px; top: 25%; left: 75%; animation: floatLogo 30s infinite linear reverse; }
 
         @media (max-width: 768px) {
-            .glow-orb { opacity: 0.5; }
-            .glow-orb.jio { width: 100vw; height: 100vw; top: -30%; left: -20%; }
-            .glow-orb.g-blue { width: 90vw; height: 90vw; bottom: -20%; right: -20%; }
-            .glow-orb.g-red { width: 80vw; height: 80vw; top: 10%; right: -30%; opacity: 0.25; }
-            .glow-orb.g-cyan { display: none; }
-            .floating-logo { opacity: 0.02; } 
+            .glow-orb { opacity: 0.45; }
+            .glow-orb.rcb-red-main { width: 110vw; height: 110vw; top: -35%; left: -25%; }
+            .glow-orb.rcb-black-main { width: 100vw; height: 100vw; bottom: -25%; right: -25%; }
+            .glow-orb.rcb-red-acc { width: 90vw; height: 90vw; top: 15%; right: -35%; opacity: 0.2; }
+            .glow-orb.rcb-gold-acc { display: none; }
+            .floating-logo { opacity: 0.03; } 
             .fl-3, .fl-4 { display: none; } 
         }
         
@@ -113,14 +113,25 @@
             100% { transform: translate3d(0, 0, 0) rotate(360deg); }
         }
 
-        /* --- GLASS PANELS - ISOLATED LAYER FIX --- */
+        /* Playcode Flip Animation */
+        @keyframes coinFlip {
+            0% { transform: perspective(600px) rotateY(0deg); }
+            100% { transform: perspective(600px) rotateY(360deg); }
+        }
+        .flip-logo-anim {
+            animation: coinFlip 4s infinite linear;
+            box-shadow: 0 4px 12px rgba(215, 26, 33, 0.4);
+            border-radius: 50%;
+        }
+
+        /* --- GLASS PANELS --- */
         .glass-panel {
             background: var(--glass-bg); 
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
             border: 1px solid var(--glass-border); 
             border-top: 1px solid var(--glass-highlight);
             border-radius: 24px; box-shadow: var(--shadow-elevation);
-            transform: translateZ(0); /* FORCES BLUR TO BE COMPOSITED ON A SEPARATE LAYER */
+            transform: translateZ(0); 
         }
 
         /* --- HEADER --- */
@@ -128,17 +139,22 @@
             position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
             background: transparent;
             border-bottom: none; transition: var(--transition-smooth);
-            pointer-events: none; /* Prevents empty header area from blocking clicks */
+            pointer-events: none; 
         }
         .header-content { 
             max-width: 1400px; margin: 0 auto; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; 
-            pointer-events: auto; /* Ensures logo and button remain clickable */
+            pointer-events: auto; 
         }
         .brand-logo { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
-        .logo-badge { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); padding: 6px 16px 6px 6px; border-radius: 100px; border: 1px solid var(--glass-border); transition: var(--transition-smooth); }
-        .logo-badge:hover { background: rgba(255,255,255,0.08); border-color: rgba(66,133,244,0.4); }
-        .jio-logo { height: 32px; border-radius: 50%; object-fit: contain; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-        .logo-text { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.5px; }
+        .logo-badge { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.04); padding: 8px 18px 8px 8px; border-radius: 100px; border: 1px solid var(--glass-border); transition: var(--transition-smooth); }
+        .logo-badge:hover { background: rgba(255,255,255,0.08); border-color: rgba(215, 26, 33, 0.4); }
+        .partner-logos { display: flex; align-items: center; gap: 8px; }
+        
+        .rcb-logo { height: 32px; object-fit: contain; }
+        .jio-logo { height: 28px; border-radius: 50%; object-fit: contain; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+        .playcode-logo { height: 28px; border-radius: 50%; object-fit: contain; margin-left: 4px; }
+        
+        .logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.5px; }
 
         /* --- HERO / FIRST LOOK --- */
         .welcome-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 24px 60px; position: relative; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -147,26 +163,34 @@
         .welcome-container { max-width: 900px; text-align: center; z-index: 1; }
         
         .welcome-badge {
-            display: inline-flex; align-items: center; gap: 8px; padding: 8px 24px;
-            border-radius: 100px; font-size: 13px; font-weight: 600; font-family: var(--font-display);
-            color: var(--google-blue); margin-bottom: 32px; 
-            border: 1px solid rgba(66, 133, 244, 0.2);
-            background: rgba(66, 133, 244, 0.08);
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 26px;
+            border-radius: 100px; font-size: 14px; font-weight: 700; font-family: var(--font-display);
+            color: var(--rcb-red); margin-bottom: 24px; 
+            border: 1px solid rgba(215, 26, 33, 0.3);
+            background: rgba(215, 26, 33, 0.1);
             animation: fadeUp 0.8s ease forwards; opacity: 0; transform: translateY(20px);
+            letter-spacing: 1px;
         }
 
         .welcome-title {
-            font-family: var(--font-display); font-size: 68px; font-weight: 800; line-height: 1.15; margin-bottom: 24px;
+            font-family: var(--font-display); font-size: 64px; font-weight: 800; line-height: 1.15; margin-bottom: 16px;
             letter-spacing: -1.5px; animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; transform: translateY(20px);
         }
         
         .welcome-title span {
-            background: linear-gradient(110deg, #4285F4 0%, #00C6FF 40%, #FFFFFF 100%);
+            background: linear-gradient(110deg, #D71A21 0%, #E5A62B 50%, #FFFFFF 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
 
+        .welcome-partner-text {
+            font-family: var(--font-display); font-size: 32px; font-weight: 800; color: #FFFFFF;
+            margin-bottom: 24px; letter-spacing: -0.5px; text-transform: uppercase;
+            animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0; transform: translateY(20px);
+        }
+        .welcome-partner-text span.jio { color: var(--rcb-red); }
+
         .welcome-subtitle {
-            font-size: 19px; color: var(--md-text-muted); max-width: 650px; margin: 0 auto 48px; line-height: 1.6;
+            font-size: 18px; color: var(--md-text-muted); max-width: 650px; margin: 0 auto 48px; line-height: 1.6;
             animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; transform: translateY(20px);
             font-weight: 300;
         }
@@ -176,10 +200,10 @@
             background: #FFFFFF; color: #000000;
             border: none; border-radius: 100px; font-family: var(--font-display); font-size: 16px; font-weight: 700;
             cursor: pointer; transition: var(--transition-smooth); 
-            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.15), inset 0 -2px 0 rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(215, 26, 33, 0.15), inset 0 -2px 0 rgba(0,0,0,0.1);
             animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; transform: translateY(20px);
         }
-        .cta-button:hover { transform: translate3d(0, -4px, 0) scale(1.02); box-shadow: 0 12px 32px rgba(66, 133, 244, 0.3); }
+        .cta-button:hover { transform: translate3d(0, -4px, 0) scale(1.02); box-shadow: 0 12px 32px rgba(215, 26, 33, 0.4); }
         .cta-button:active { transform: translate3d(0, 0, 0) scale(0.98); }
 
         /* --- SERVICES (BENTO GRID) --- */
@@ -203,9 +227,9 @@
         }
         .bento-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(66, 133, 244, 0.05) 0%, transparent 100%); opacity: 0; transition: 0.3s;
+            background: linear-gradient(180deg, rgba(215, 26, 33, 0.08) 0%, transparent 100%); opacity: 0; transition: 0.3s;
         }
-        .bento-card:hover { border-color: rgba(66, 133, 244, 0.3); transform: translate3d(0, -6px, 0); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .bento-card:hover { border-color: rgba(215, 26, 33, 0.4); transform: translate3d(0, -6px, 0); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .bento-card:hover::before { opacity: 1; }
         
         .card-half { grid-column: span 6; }
@@ -222,35 +246,45 @@
         .card-title { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; position: relative; z-index: 1; }
         .card-description { color: var(--md-text-muted); font-size: 16px; margin-bottom: 32px; flex-grow: 1; font-weight: 300; position: relative; z-index: 1; }
         
-        .card-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--google-blue); font-weight: 600; font-family: var(--font-display); font-size: 15px; position: relative; z-index: 1; }
+        .card-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--rcb-red); font-weight: 600; font-family: var(--font-display); font-size: 15px; position: relative; z-index: 1; }
 
         .card-new-tag {
             position: absolute; top: 24px; right: 24px; z-index: 1;
-            background: rgba(66, 133, 244, 0.15); color: #8ab4f8;
+            background: rgba(215, 26, 33, 0.2); color: #FFFFFF;
             padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 800;
-            border: 1px solid rgba(66, 133, 244, 0.3); text-transform: uppercase;
+            border: 1px solid rgba(215, 26, 33, 0.4); text-transform: uppercase;
             font-family: var(--font-display); letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(66, 133, 244, 0.2);
+            box-shadow: 0 0 10px rgba(215, 26, 33, 0.2);
         }
 
         .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; position: relative; z-index: 1; }
         .tool-mini-card { 
-            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.7); border: 1px solid var(--glass-border); 
             padding: 24px 16px; border-radius: 24px; text-align: center; text-decoration: none; color: white; transition: 0.3s; 
             will-change: transform;
         }
-        .tool-mini-card:hover { background: rgba(66, 133, 244, 0.08); border-color: rgba(66,133,244,0.3); transform: translate3d(0, -4px, 0); }
+        .tool-mini-card:hover { background: rgba(215, 26, 33, 0.08); border-color: rgba(215, 26, 33, 0.4); transform: translate3d(0, -4px, 0); }
 
         /* --- FOOTER --- */
-        .main-footer { border-top: 1px solid var(--glass-border); padding: 80px 24px 40px; background: rgba(0,0,0,0.6); }
+        .main-footer { border-top: 1px solid var(--glass-border); padding: 80px 24px 40px; background: rgba(0,0,0,0.8); }
         .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
         .footer-links a { color: var(--md-text-muted); text-decoration: none; transition: 0.2s; display: block; margin-bottom: 12px; font-weight: 300; }
         .footer-links a:hover { color: #FFFFFF; padding-left: 4px; }
+        
+        .footer-partner-logos { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .rcb-logo-footer { height: 40px; object-fit: contain; }
+        .jio-logo-footer { height: 32px; border-radius: 50%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        
+        /* Correction for non-operating status */
+        .footer-disclaimer {
+            background: rgba(215, 26, 33, 0.05); border: 1px solid rgba(215, 26, 33, 0.2);
+            padding: 12px 16px; border-radius: 12px; margin-top: 16px; display: inline-block;
+        }
 
         /* --- ANIMATIONS --- */
-        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #090a0f; z-index: var(--z-modal); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
+        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; z-index: var(--z-modal); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
         .page-transition.active { display: flex; animation: pageTransition 1.2s forwards; pointer-events: all; }
-        .transition-logo { width: 100px; border-radius: 20px; transform: scale(0.1); opacity: 0; animation: logoReveal 0.8s 0.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .transition-logo { width: 120px; border-radius: 20px; transform: scale(0.1); opacity: 0; animation: logoReveal 0.8s 0.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         @keyframes fadeUp { to { opacity: 1; transform: translate3d(0, 0, 0); } }
         @keyframes fadeIn { to { opacity: 1; } }
@@ -267,40 +301,46 @@
         @media (max-width: 768px) {
             .welcome-screen { padding: 100px 20px 40px; }
             .welcome-title { font-size: 44px; letter-spacing: -1px; }
+            .welcome-partner-text { font-size: 24px; }
             .welcome-subtitle { font-size: 16px; }
             .header-content { padding: 12px 20px; }
             .tools-grid { grid-template-columns: 1fr; }
             .bento-card { padding: 32px 24px; border-radius: 28px; }
             .section-title { font-size: 32px; }
             .footer-content { flex-direction: column; }
+            .logo-text { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="ambient-wrapper">
-        <div class="glow-orb jio"></div>
-        <div class="glow-orb g-blue"></div>
-        <div class="glow-orb g-red"></div>
-        <div class="glow-orb g-cyan"></div>
+        <div class="glow-orb rcb-red-main"></div>
+        <div class="glow-orb rcb-black-main"></div>
+        <div class="glow-orb rcb-red-acc"></div>
+        <div class="glow-orb rcb-gold-acc"></div>
         
-        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" class="floating-logo fl-1" alt="">
-        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" class="floating-logo fl-2" alt="">
-        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" class="floating-logo fl-3" alt="">
+        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" class="floating-logo fl-1" alt="">
+        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" class="floating-logo fl-2" alt="">
+        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" class="floating-logo fl-3" alt="">
         <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" class="floating-logo fl-4" alt="">
     </div>
 
     <div class="page-transition" id="pageTransition">
-        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="Google Play" class="transition-logo">
+        <!-- Flipping Playcode logo during transition -->
+        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="transition-logo flip-logo-anim">
     </div>
     
     <header class="main-header">
         <div class="header-content">
             <a href="#" class="brand-logo" id="backToWelcomeBtn">
                 <div class="logo-badge">
-                    <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" class="jio-logo">
-                    <span class="logo-text">PlayCode</span>
+                    <div class="partner-logos">
+                        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" alt="RCB" class="rcb-logo">
+                        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" class="jio-logo">
+                        <!-- Added Playcode Logo with Flip Animation -->
+                        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="playcode-logo flip-logo-anim">
+                    </div>
                 </div>
-                <span style="font-size: 14px; color: var(--md-text-muted); font-weight: 500; display: none; @media(min-width: 400px){ display: inline;}">Enterprise</span>
             </a>
             <button id="contactBtn" class="cta-button" style="padding: 8px 20px; font-size: 14px; font-weight: 600; animation: none; opacity: 1; transform: none; background: rgba(255,255,255,0.06); color: white; box-shadow: none; border: 1px solid rgba(255,255,255,0.1);">Support</button>
         </div>
@@ -309,9 +349,14 @@
     <section class="welcome-screen" id="welcomeScreen">
         <div class="welcome-container">
             <div class="welcome-badge glass-panel">
-                <span class="material-icons-round" style="font-size: 16px; color: #8ab4f8;">verified</span>
-                Reliance Jio × Google Infrastructure
+                <span class="material-icons-round" style="font-size: 16px; color: var(--rcb-red);">verified</span>
+                OFFICIAL BRAND COLLABORATION
             </div>
+
+            <!-- Requested Name Format -->
+            <h2 class="welcome-partner-text">
+                RCB X <span class="jio">JIO</span> PLAYCODE
+            </h2>
             
             <h1 class="welcome-title">
                 Premium Digital Infrastructure<br>
@@ -323,7 +368,7 @@
             </p>
             
             <button class="cta-button" id="startButton">
-                Launch Workspace <span class="material-icons-round" style="font-size: 20px;">rocket_launch</span>
+                Launch Workspace <span class="material-icons-round" style="font-size: 20px;">sports_cricket</span>
             </button>
         </div>
     </section>
@@ -342,14 +387,14 @@
                 <span class="card-cta">Access Console <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
             </a>
 
-            <a href="https://playcodeindia.github.io/Invest/" target="_self" class="bento-card card-half" style="border-color: rgba(66, 133, 244, 0.2);">
-                <div class="card-new-tag">NEW</div>
-                <div class="card-icon" style="background: rgba(66, 133, 244, 0.15); border-color: rgba(66, 133, 244, 0.3); color: #8ab4f8;">
+            <a href="https://playcodeindia.github.io/Invest/" target="_self" class="bento-card card-half" style="border-color: rgba(229, 166, 43, 0.3);">
+                <div class="card-new-tag" style="background: rgba(229, 166, 43, 0.2); color: #E5A62B; border-color: rgba(229, 166, 43, 0.4);">NEW</div>
+                <div class="card-icon" style="background: rgba(229, 166, 43, 0.15); border-color: rgba(229, 166, 43, 0.3); color: #E5A62B;">
                     <span class="material-icons-round">pie_chart</span>
                 </div>
                 <h3 class="card-title">Playcode Invest</h3>
-                <p class="card-description">High-yield digital asset allocation, portfolio tracking, and Jio internal fund management.</p>
-                <span class="card-cta" style="color: #8ab4f8;">Explore Growth <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
+                <p class="card-description">High-yield digital asset allocation, portfolio tracking, and internal fund management.</p>
+                <span class="card-cta" style="color: #E5A62B;">Explore Growth <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
             </a>
 
             <a href="https://playcodeindia.github.io/Google/" target="_self" class="bento-card card-half">
@@ -359,14 +404,14 @@
                 <span class="card-cta">Access Engine <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
             </a>
             
-            <a href="https://playcodeindia.github.io/Rewards" target="_self" class="bento-card card-half" style="border-color: rgba(251, 188, 5, 0.4); box-shadow: 0 0 24px rgba(251, 188, 5, 0.15);">
-                <div class="card-new-tag" style="background: rgba(251, 188, 5, 0.2); color: #FBBC05; border-color: rgba(251, 188, 5, 0.4);">HOT</div>
-                <div class="card-icon" style="background: rgba(251, 188, 5, 0.15); border-color: rgba(251, 188, 5, 0.3); color: #FBBC05;">
+            <a href="https://playcodeindia.github.io/Rewards" target="_self" class="bento-card card-half" style="border-color: rgba(215, 26, 33, 0.4); box-shadow: 0 0 24px rgba(215, 26, 33, 0.15);">
+                <div class="card-new-tag">HOT</div>
+                <div class="card-icon" style="background: rgba(215, 26, 33, 0.15); border-color: rgba(215, 26, 33, 0.3); color: #FFFFFF;">
                     <span class="material-icons-round">stars</span>
                 </div>
                 <h3 class="card-title">Playcode Rewards+</h3>
                 <p class="card-description">Unlock exclusive digital perks, claim milestone badges, and redeem your hard-earned points.</p>
-                <span class="card-cta" style="color: #FBBC05;">Claim Rewards <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
+                <span class="card-cta">Claim Rewards <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
             </a>
             
             <div class="bento-card card-full">
@@ -376,15 +421,15 @@
                 </div>
                 <div class="tools-grid">
                     <a href="https://playcodeindia.github.io/PlaycodeAi/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: #4285F4; margin-bottom: 12px;">smart_toy</span>
+                        <span class="material-icons-round" style="font-size: 36px; color: #FFFFFF; margin-bottom: 12px;">smart_toy</span>
                         <h4 style="font-family: var(--font-display); font-weight: 600;">Gemini AI</h4>
                     </a>
                     <a href="https://playcodeindia.github.io/video/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: #EA4335; margin-bottom: 12px;">videocam</span>
+                        <span class="material-icons-round" style="font-size: 36px; color: var(--rcb-red); margin-bottom: 12px;">videocam</span>
                         <h4 style="font-family: var(--font-display); font-weight: 600;">Video Engine</h4>
                     </a>
                     <a href="https://playcodeindia.github.io/Media/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: #FBBC05; margin-bottom: 12px;">play_circle</span>
+                        <span class="material-icons-round" style="font-size: 36px; color: var(--rcb-gold); margin-bottom: 12px;">play_circle</span>
                         <h4 style="font-family: var(--font-display); font-weight: 600;">Audio Player</h4>
                     </a>
                 </div>
@@ -395,8 +440,18 @@
     <footer class="main-footer" id="footerSection" style="display: none;">
         <div class="footer-content">
             <div>
-                <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" style="height:40px; border-radius: 50%; margin-bottom:16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-                <p style="color:var(--md-text-muted); font-size:15px; font-weight: 300; max-width:300px;">Operated by Reliance Jio & Owned by Google LLC.</p>
+                <div class="footer-partner-logos">
+                    <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" alt="RCB" class="rcb-logo-footer">
+                    <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" class="jio-logo-footer">
+                    <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="jio-logo-footer flip-logo-anim">
+                </div>
+                <p style="color:var(--md-text-muted); font-size:15px; font-weight: 300; max-width:380px;">
+                    Operated exclusively by Reliance Jio. Owned by Google LLC.
+                </p>
+                <div class="footer-disclaimer">
+                    <span class="material-icons-round" style="font-size: 14px; color: var(--rcb-red); vertical-align: middle;">info</span>
+                    <span style="color:#FFF; font-size: 13px; font-weight: 500;">Note: RCB is strictly an Official Brand Partner and does not operate this platform.</span>
+                </div>
             </div>
             <div class="footer-links">
                 <a href="https://playcodeindia.github.io/Privacypolicies/">Privacy Framework</a>
@@ -443,20 +498,20 @@
         contactBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s; transform: translateZ(0);';
+            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s; transform: translateZ(0);';
             
             const modal = document.createElement('div');
             modal.className = 'glass-panel';
-            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translate3d(0, 20px, 0); transition: 0.3s;';
+            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translate3d(0, 20px, 0); transition: 0.3s; border: 1px solid rgba(215, 26, 33, 0.3);';
             
             modal.innerHTML = `
-                <span class="material-icons-round" style="font-size: 48px; color: #4285F4; margin-bottom: 16px;">headset_mic</span>
+                <span class="material-icons-round" style="font-size: 48px; color: var(--rcb-red); margin-bottom: 16px;">headset_mic</span>
                 <h3 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px;">Node Support</h3>
                 <p style="color:var(--md-text-muted); font-size: 15px; margin-bottom:32px; font-weight: 300;">Select a method to connect with our system administrators.</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
                     <a href="mailto:playcodeagent@gmail.com" style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-decoration: none; color: white; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(234, 67, 53, 0.1); display: grid; place-items: center; color: var(--google-red);">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(215, 26, 33, 0.15); display: grid; place-items: center; color: var(--rcb-red);">
                             <span class="material-icons-round">mail</span>
                         </div>
                         <div style="text-align: left;">
@@ -465,13 +520,13 @@
                         </div>
                     </a>
 
-                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(66, 133, 244, 0.1); border: 1px solid rgba(66, 133, 244, 0.3); border-radius: 16px; text-decoration: none; color: white; transition: 0.3s; box-shadow: 0 4px 16px rgba(66, 133, 244, 0.15);" onmouseover="this.style.background='rgba(66, 133, 244, 0.2)'" onmouseout="this.style.background='rgba(66, 133, 244, 0.1)'">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(66, 133, 244, 0.2); display: grid; place-items: center; color: #8ab4f8;">
+                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(229, 166, 43, 0.1); border: 1px solid rgba(229, 166, 43, 0.3); border-radius: 16px; text-decoration: none; color: white; transition: 0.3s; box-shadow: 0 4px 16px rgba(229, 166, 43, 0.15);" onmouseover="this.style.background='rgba(229, 166, 43, 0.2)'" onmouseout="this.style.background='rgba(229, 166, 43, 0.1)'">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(229, 166, 43, 0.2); display: grid; place-items: center; color: #E5A62B;">
                             <span class="material-icons-round">chat</span>
                         </div>
                         <div style="text-align: left;">
                             <div style="font-weight: 600; font-size: 16px; font-family: var(--font-display);">Live Chat</div>
-                            <div style="font-size: 13px; color: #8ab4f8;">Connect with Support Staff</div>
+                            <div style="font-size: 13px; color: #E5A62B;">Connect with Support Staff</div>
                         </div>
                     </a>
                 </div>
