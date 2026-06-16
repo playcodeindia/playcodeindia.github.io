@@ -1,290 +1,234 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" sizes="32x32" href="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png">
+    <link rel="icon" sizes="32x32" href="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RCB X JIO PLAYCODE | Enterprise</title>
+    <title>GOOGLE PLAYCODE | Enterprise</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Google+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- RCB JERSEY THEME (RED & BLACK) --- */
+        /* Smooth scrolling applied here */
+        html { scroll-behavior: smooth; }
+
+        /* --- GOOGLE DARK THEME (Colorful AI Edition) --- */
         :root {
-            /* Pure Dark/Black Backgrounds */
-            --md-sys-color-background: #050505; 
-            --md-sys-color-surface: #111111;
-            --md-sys-color-surface-variant: #222222;
-            --md-text-main: #E3E3E3;
-            --md-text-muted: #9AA0A6;
+            /* Deep Dark Grey Tones */
+            --google-bg: #131314; 
+            --google-surface: #1E1F22;
+            --google-surface-hover: #282A2C;
+            --google-text: #E3E3E3;
+            --google-text-muted: #C4C7C5;
             
-            /* RCB Core Palette (No Blue) */
-            --rcb-red: #D71A21;
-            --rcb-black: #1A1A1A;
-            --rcb-gold: #E5A62B;
-            --playcode-accent: #EA4335;
+            /* AI Colorful Accents */
+            --google-accent-blue: #8AB4F8;
+            --google-accent-purple: #C58AF9;
+            --google-accent-cyan: #24C1E0;
             
-            /* Glass Effect */
-            --glass-bg: rgba(15, 15, 15, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.12);
-            --shadow-elevation: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
+            /* Brand Colors */
+            --g-blue: #4285F4;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC05;
+            --g-green: #34A853;
+
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --panel-border-hover: rgba(255, 255, 255, 0.15);
             
             --font-display: 'Google Sans', sans-serif;
             --font-base: 'Inter', sans-serif;
             
-            --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --z-modal: 1000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-base); }
         
         body {
-            background-color: var(--md-sys-color-background);
-            color: var(--md-text-main);
+            background-color: var(--google-bg);
+            /* Gemini-style vivid glowing auras in the background */
+            background-image: 
+                radial-gradient(circle at 15% 0%, rgba(66, 133, 244, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(197, 138, 249, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(36, 193, 224, 0.08) 0%, transparent 60%);
+            background-attachment: fixed;
+            color: var(--google-text);
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--md-sys-color-background); }
-        ::-webkit-scrollbar-thumb { background: var(--rcb-red); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: var(--google-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--google-surface-hover); border-radius: 10px; }
 
-        /* --- RED & BLACK MESH --- */
-        .ambient-wrapper {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            z-index: -1; overflow: hidden; pointer-events: none;
-            background: #030303;
-            contain: strict; 
-        }
-        
-        .glow-orb {
-            position: absolute; border-radius: 50%; opacity: 0.35;
-            animation: floatMesh 20s infinite alternate ease-in-out;
-            transform-origin: center center;
-            will-change: transform;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-
-        /* Pure Red and Black Orbs */
-        .glow-orb.rcb-red-main { width: 65vw; height: 65vw; background: radial-gradient(circle, rgba(215,26,33,0.25) 0%, transparent 70%); top: -15%; left: -15%; }
-        .glow-orb.rcb-black-main { width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(30,30,30,0.5) 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 25s; }
-        .glow-orb.rcb-red-acc { width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(215,26,33,0.15) 0%, transparent 70%); bottom: 25%; right: 15%; animation-delay: -12s; }
-        .glow-orb.rcb-gold-acc { width: 35vw; height: 35vw; background: radial-gradient(circle, rgba(229,166,43,0.1) 0%, transparent 70%); top: 20%; right: 10%; animation-delay: -8s; }
-
-        .floating-logo {
-            position: absolute; border-radius: 50%;
-            opacity: 0.05; 
-            pointer-events: none; z-index: 0;
-            will-change: transform;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .fl-1 { width: 140px; top: 15%; left: 8%; animation: floatLogo 35s infinite linear; }
-        .fl-2 { width: 90px; top: 65%; left: 85%; animation: floatLogo 40s infinite linear reverse; }
-        .fl-3 { width: 160px; top: 75%; left: 15%; animation: floatLogo 45s infinite linear; }
-        .fl-4 { width: 110px; top: 25%; left: 75%; animation: floatLogo 30s infinite linear reverse; }
-
-        @media (max-width: 768px) {
-            .glow-orb { opacity: 0.45; }
-            .glow-orb.rcb-red-main { width: 110vw; height: 110vw; top: -35%; left: -25%; }
-            .glow-orb.rcb-black-main { width: 100vw; height: 100vw; bottom: -25%; right: -25%; }
-            .glow-orb.rcb-red-acc { width: 90vw; height: 90vw; top: 15%; right: -35%; opacity: 0.2; }
-            .glow-orb.rcb-gold-acc { display: none; }
-            .floating-logo { opacity: 0.03; } 
-            .fl-3, .fl-4 { display: none; } 
-        }
-        
-        @keyframes floatMesh {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
-            33% { transform: translate3d(4vw, 6vh, 0) scale(1.05); }
-            66% { transform: translate3d(-3vw, 4vh, 0) scale(0.95); }
-            100% { transform: translate3d(2vw, -5vh, 0) scale(1.1); }
-        }
-
-        @keyframes floatLogo {
-            0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-            33% { transform: translate3d(30px, -40px, 0) rotate(120deg); }
-            66% { transform: translate3d(-20px, 30px, 0) rotate(240deg); }
-            100% { transform: translate3d(0, 0, 0) rotate(360deg); }
-        }
-
-        /* Playcode Flip Animation */
         @keyframes coinFlip {
             0% { transform: perspective(600px) rotateY(0deg); }
             100% { transform: perspective(600px) rotateY(360deg); }
         }
         .flip-logo-anim {
             animation: coinFlip 4s infinite linear;
-            box-shadow: 0 4px 12px rgba(215, 26, 33, 0.4);
             border-radius: 50%;
         }
 
-        /* --- GLASS PANELS --- */
+        /* --- MINIMAL HEADER --- */
+        .top-header {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
+            padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo-wrap { display: flex; align-items: center; gap: 12px; }
+        .google-g-logo { height: 26px; object-fit: contain; }
+        .playcode-logo { height: 26px; border-radius: 50%; object-fit: contain; }
+        
+        /* Outline Support Button */
+        .support-btn-outline {
+            background: transparent; color: var(--google-text);
+            border: 1px solid var(--panel-border);
+            padding: 8px 20px; border-radius: 100px;
+            font-family: var(--font-display); font-size: 13px; font-weight: 500;
+            cursor: pointer; transition: var(--transition-smooth);
+        }
+        .support-btn-outline:hover { background: rgba(255,255,255,0.05); border-color: var(--panel-border-hover); }
+
+        /* --- PANELS --- */
         .glass-panel {
-            background: var(--glass-bg); 
-            backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-            border: 1px solid var(--glass-border); 
-            border-top: 1px solid var(--glass-highlight);
-            border-radius: 24px; box-shadow: var(--shadow-elevation);
+            background: var(--google-surface); 
+            border: 1px solid var(--panel-border); 
+            border-radius: 16px; 
             transform: translateZ(0); 
         }
 
-        /* --- HEADER --- */
-        .main-header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-            background: transparent;
-            border-bottom: none; transition: var(--transition-smooth);
-            pointer-events: none; 
-        }
-        .header-content { 
-            max-width: 1400px; margin: 0 auto; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; 
-            pointer-events: auto; 
-        }
-        .brand-logo { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
-        .logo-badge { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.04); padding: 8px 18px 8px 8px; border-radius: 100px; border: 1px solid var(--glass-border); transition: var(--transition-smooth); }
-        .logo-badge:hover { background: rgba(255,255,255,0.08); border-color: rgba(215, 26, 33, 0.4); }
-        .partner-logos { display: flex; align-items: center; gap: 8px; }
-        
-        .rcb-logo { height: 32px; object-fit: contain; }
-        .jio-logo { height: 28px; border-radius: 50%; object-fit: contain; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-        .playcode-logo { height: 28px; border-radius: 50%; object-fit: contain; margin-left: 4px; }
-        
-        .logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.5px; }
-
         /* --- HERO / FIRST LOOK --- */
-        .welcome-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 24px 60px; position: relative; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .welcome-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 24px; position: relative; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .welcome-screen.exit { transform: scale(0.95) translateY(-30px); opacity: 0; pointer-events: none; }
         
-        .welcome-container { max-width: 900px; text-align: center; z-index: 1; }
+        .welcome-container { max-width: 900px; text-align: center; z-index: 1; margin-top: -40px; }
         
         .welcome-badge {
-            display: inline-flex; align-items: center; gap: 8px; padding: 10px 26px;
-            border-radius: 100px; font-size: 14px; font-weight: 700; font-family: var(--font-display);
-            color: var(--rcb-red); margin-bottom: 24px; 
-            border: 1px solid rgba(215, 26, 33, 0.3);
-            background: rgba(215, 26, 33, 0.1);
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+            border-radius: 100px; font-size: 13px; font-weight: 600; font-family: var(--font-display);
+            color: var(--google-accent-blue); margin-bottom: 24px; 
+            background: rgba(138, 180, 248, 0.08);
+            border: 1px solid rgba(138, 180, 248, 0.15);
             animation: fadeUp 0.8s ease forwards; opacity: 0; transform: translateY(20px);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .welcome-title {
-            font-family: var(--font-display); font-size: 64px; font-weight: 800; line-height: 1.15; margin-bottom: 16px;
-            letter-spacing: -1.5px; animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; transform: translateY(20px);
+            font-family: var(--font-display); font-size: 56px; font-weight: 500; line-height: 1.15; margin-bottom: 16px;
+            letter-spacing: -0.5px; animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; transform: translateY(20px);
+            color: var(--google-text);
         }
         
+        /* Bright AI Gradient Text */
         .welcome-title span {
-            background: linear-gradient(110deg, #D71A21 0%, #E5A62B 50%, #FFFFFF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            background: linear-gradient(90deg, var(--google-accent-blue), var(--google-accent-cyan), var(--google-accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .welcome-partner-text {
-            font-family: var(--font-display); font-size: 32px; font-weight: 800; color: #FFFFFF;
-            margin-bottom: 24px; letter-spacing: -0.5px; text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-family: var(--font-display); font-size: 24px; font-weight: 500; color: var(--google-text);
+            margin-bottom: 24px; letter-spacing: -0.5px;
             animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0; transform: translateY(20px);
         }
-        .welcome-partner-text span.jio { color: var(--rcb-red); }
 
         .welcome-subtitle {
-            font-size: 18px; color: var(--md-text-muted); max-width: 650px; margin: 0 auto 48px; line-height: 1.6;
+            font-size: 16px; color: var(--google-text-muted); max-width: 600px; margin: 0 auto 48px; line-height: 1.6;
             animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; transform: translateY(20px);
-            font-weight: 300;
+            font-weight: 400;
         }
 
+        /* GEMINI PROMPT BAR STYLE BUTTON */
         .cta-button {
-            display: inline-flex; align-items: center; gap: 12px; padding: 18px 40px;
-            background: #FFFFFF; color: #000000;
-            border: none; border-radius: 100px; font-family: var(--font-display); font-size: 16px; font-weight: 700;
+            display: inline-flex; align-items: center; justify-content: center; gap: 12px; 
+            padding: 16px 32px;
+            background: var(--google-surface); 
+            color: var(--google-text);
+            border: 1px solid var(--panel-border); 
+            border-radius: 100px; /* Pill Shape */
+            font-family: var(--font-display); font-size: 15px; font-weight: 500;
             cursor: pointer; transition: var(--transition-smooth); 
-            box-shadow: 0 8px 24px rgba(215, 26, 33, 0.15), inset 0 -2px 0 rgba(0,0,0,0.1);
             animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; transform: translateY(20px);
+            min-width: 280px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
-        .cta-button:hover { transform: translate3d(0, -4px, 0) scale(1.02); box-shadow: 0 12px 32px rgba(215, 26, 33, 0.4); }
-        .cta-button:active { transform: translate3d(0, 0, 0) scale(0.98); }
+        .cta-button:hover { 
+            background: var(--google-surface-hover); 
+            border-color: var(--panel-border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+        }
+        .cta-button:active { transform: translateY(0px); }
+        .cta-button .material-icons-round { color: var(--google-text-muted); }
 
         /* --- SERVICES (BENTO GRID) --- */
-        .services-section { padding: 120px 24px; display: none; opacity: 0; }
+        .services-section { padding: 80px 24px 120px; display: none; opacity: 0; }
         .services-section.active { display: block; animation: fadeIn 0.8s ease forwards; }
         
-        .section-header { text-align: center; margin-bottom: 72px; }
-        .section-title { font-family: var(--font-display); font-size: 42px; font-weight: 700; margin-bottom: 16px; letter-spacing: -1px; }
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-title { font-family: var(--font-display); font-size: 36px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.5px; }
 
         .bento-grid {
-            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;
+            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
         }
 
         .bento-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); 
-            border-top: 1px solid var(--glass-highlight); border-radius: 32px;
-            padding: 40px; display: flex; flex-direction: column; transition: var(--transition-smooth);
-            text-decoration: none; color: inherit; position: relative; overflow: hidden;
-            will-change: transform;
-            transform: translateZ(0);
+            background: rgba(30, 31, 34, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--panel-border); border-radius: 24px;
+            padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth);
+            text-decoration: none; color: inherit; position: relative; overflow: hidden; cursor: pointer;
         }
-        .bento-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(215, 26, 33, 0.08) 0%, transparent 100%); opacity: 0; transition: 0.3s;
-        }
-        .bento-card:hover { border-color: rgba(215, 26, 33, 0.4); transform: translate3d(0, -6px, 0); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .bento-card:hover::before { opacity: 1; }
+        .bento-card:hover { border-color: rgba(138, 180, 248, 0.3); background: var(--google-surface-hover); transform: translateY(-4px); }
         
         .card-half { grid-column: span 6; }
-        .card-full { grid-column: span 12; display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 48px; align-items: center; }
+        .card-full { grid-column: span 12; display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 40px; align-items: center; }
 
         .card-icon {
-            width: 64px; height: 64px; min-width: 64px; border-radius: 20px; 
+            width: 56px; height: 56px; min-width: 56px; border-radius: 50%; 
             display: grid; place-items: center; 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08);
-            color: #FFFFFF; margin-bottom: 24px; position: relative; z-index: 1;
+            background: var(--google-surface-hover); border: 1px solid var(--panel-border);
+            color: var(--google-text); margin-bottom: 24px; position: relative; z-index: 1;
+            transition: var(--transition-smooth);
         }
-        .card-icon .material-icons-round { font-size: 32px; }
+        .bento-card:hover .card-icon { background: rgba(138, 180, 248, 0.1); color: var(--google-accent-blue); border-color: rgba(138, 180, 248, 0.2); }
+        .card-icon .material-icons-round { font-size: 24px; }
 
-        .card-title { font-family: var(--font-display); font-size: 26px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; position: relative; z-index: 1; }
-        .card-description { color: var(--md-text-muted); font-size: 16px; margin-bottom: 32px; flex-grow: 1; font-weight: 300; position: relative; z-index: 1; }
+        .card-title { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.3px; position: relative; z-index: 1; }
+        .card-description { color: var(--google-text-muted); font-size: 15px; margin-bottom: 24px; flex-grow: 1; font-weight: 400; position: relative; z-index: 1; }
         
-        .card-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--rcb-red); font-weight: 600; font-family: var(--font-display); font-size: 15px; position: relative; z-index: 1; }
+        .card-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--google-accent-blue); font-weight: 500; font-family: var(--font-display); font-size: 14px; position: relative; z-index: 1; }
 
         .card-new-tag {
             position: absolute; top: 24px; right: 24px; z-index: 1;
-            background: rgba(215, 26, 33, 0.2); color: #FFFFFF;
-            padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 800;
-            border: 1px solid rgba(215, 26, 33, 0.4); text-transform: uppercase;
-            font-family: var(--font-display); letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(215, 26, 33, 0.2);
+            background: rgba(197, 138, 249, 0.1); color: var(--google-accent-purple);
+            padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 600;
+            border: 1px solid rgba(197, 138, 249, 0.2); text-transform: uppercase;
+            font-family: var(--font-display); letter-spacing: 0.5px;
         }
 
         .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; position: relative; z-index: 1; }
         .tool-mini-card { 
-            background: rgba(0,0,0,0.7); border: 1px solid var(--glass-border); 
-            padding: 24px 16px; border-radius: 24px; text-align: center; text-decoration: none; color: white; transition: 0.3s; 
-            will-change: transform;
+            background: var(--google-bg); border: 1px solid var(--panel-border); 
+            padding: 24px 16px; border-radius: 16px; text-align: center; text-decoration: none; color: var(--google-text); transition: 0.3s; 
         }
-        .tool-mini-card:hover { background: rgba(215, 26, 33, 0.08); border-color: rgba(215, 26, 33, 0.4); transform: translate3d(0, -4px, 0); }
+        .tool-mini-card:hover { border-color: rgba(138, 180, 248, 0.3); background: var(--google-surface-hover); }
+        .tool-mini-card:hover .material-icons-round { color: var(--google-accent-blue); }
 
         /* --- FOOTER --- */
-        .main-footer { border-top: 1px solid var(--glass-border); padding: 80px 24px 40px; background: rgba(0,0,0,0.8); }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
-        .footer-links a { color: var(--md-text-muted); text-decoration: none; transition: 0.2s; display: block; margin-bottom: 12px; font-weight: 300; }
-        .footer-links a:hover { color: #FFFFFF; padding-left: 4px; }
+        .main-footer { padding: 40px 24px; background: transparent; border-top: 1px solid var(--panel-border); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 16px; text-align: center; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--google-text-muted); text-decoration: none; transition: 0.2s; font-weight: 400; font-size: 13px; }
+        .footer-links a:hover { color: var(--google-text); }
         
-        .footer-partner-logos { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-        .rcb-logo-footer { height: 40px; object-fit: contain; }
-        .jio-logo-footer { height: 32px; border-radius: 50%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        
-        /* Correction for non-operating status */
-        .footer-disclaimer {
-            background: rgba(215, 26, 33, 0.05); border: 1px solid rgba(215, 26, 33, 0.2);
-            padding: 12px 16px; border-radius: 12px; margin-top: 16px; display: inline-block;
-        }
-
         /* --- ANIMATIONS --- */
-        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; z-index: var(--z-modal); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
+        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--google-bg); z-index: calc(var(--z-modal) + 10); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
         .page-transition.active { display: flex; animation: pageTransition 1.2s forwards; pointer-events: all; }
-        .transition-logo { width: 120px; border-radius: 20px; transform: scale(0.1); opacity: 0; animation: logoReveal 0.8s 0.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .transition-logo { width: 100px; border-radius: 20px; transform: scale(0.1); opacity: 0; animation: logoReveal 0.8s 0.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         @keyframes fadeUp { to { opacity: 1; transform: translate3d(0, 0, 0); } }
         @keyframes fadeIn { to { opacity: 1; } }
@@ -293,82 +237,68 @@
 
         /* --- RESPONSIVE FIXES --- */
         @media (max-width: 992px) {
-            .bento-grid { gap: 20px; }
+            .bento-grid { gap: 16px; }
             .card-half { grid-column: span 12; }
-            .card-full { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
-            .welcome-title { font-size: 52px; }
+            .card-full { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+            .welcome-title { font-size: 48px; }
         }
         @media (max-width: 768px) {
-            .welcome-screen { padding: 100px 20px 40px; }
-            .welcome-title { font-size: 44px; letter-spacing: -1px; }
-            .welcome-partner-text { font-size: 24px; }
-            .welcome-subtitle { font-size: 16px; }
-            .header-content { padding: 12px 20px; }
+            .top-header { padding: 20px; }
+            .welcome-screen { padding: 80px 20px 40px; }
+            .welcome-title { font-size: 36px; }
+            .welcome-partner-text { font-size: 20px; }
+            .welcome-subtitle { font-size: 15px; }
             .tools-grid { grid-template-columns: 1fr; }
-            .bento-card { padding: 32px 24px; border-radius: 28px; }
-            .section-title { font-size: 32px; }
-            .footer-content { flex-direction: column; }
-            .logo-text { display: none; }
+            .bento-card { padding: 24px; border-radius: 20px; }
+            .section-title { font-size: 28px; }
+            .cta-button { width: 100%; min-width: auto; }
         }
     </style>
 </head>
 <body>
-    <div class="ambient-wrapper">
-        <div class="glow-orb rcb-red-main"></div>
-        <div class="glow-orb rcb-black-main"></div>
-        <div class="glow-orb rcb-red-acc"></div>
-        <div class="glow-orb rcb-gold-acc"></div>
-        
-        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" class="floating-logo fl-1" alt="">
-        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" class="floating-logo fl-2" alt="">
-        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" class="floating-logo fl-3" alt="">
-        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" class="floating-logo fl-4" alt="">
-    </div>
 
     <div class="page-transition" id="pageTransition">
-        <!-- Flipping Playcode logo during transition -->
         <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="transition-logo flip-logo-anim">
     </div>
-    
-    <header class="main-header">
-        <div class="header-content">
-            <a href="#" class="brand-logo" id="backToWelcomeBtn">
-                <div class="logo-badge">
-                    <div class="partner-logos">
-                        <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" alt="RCB" class="rcb-logo">
-                        <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" class="jio-logo">
-                        <!-- Added Playcode Logo with Flip Animation -->
-                        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="playcode-logo flip-logo-anim">
-                    </div>
-                </div>
-            </a>
-            <button id="contactBtn" class="cta-button" style="padding: 8px 20px; font-size: 14px; font-weight: 600; animation: none; opacity: 1; transform: none; background: rgba(255,255,255,0.06); color: white; box-shadow: none; border: 1px solid rgba(255,255,255,0.1);">Support</button>
-        </div>
-    </header>
 
+    <!-- Minimal Header with Logos and Support Button -->
+    <header class="top-header" id="topHeader">
+        <div class="brand-logo-wrap" id="backToWelcomeBtn" style="cursor: pointer;">
+            <!-- Google Standard G Logo -->
+            <img src="https://pngimg.com/uploads/google/google_PNG19644.png" alt="Google" class="google-g-logo">
+            <span style="color: rgba(255,255,255,0.2);">|</span>
+            <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="playcode-logo flip-logo-anim">
+        </div>
+        <button id="contactBtn" class="support-btn-outline">Support</button>
+    </header>
+    
     <section class="welcome-screen" id="welcomeScreen">
         <div class="welcome-container">
-            <div class="welcome-badge glass-panel">
-                <span class="material-icons-round" style="font-size: 16px; color: var(--rcb-red);">verified</span>
-                OFFICIAL BRAND COLLABORATION
+            <div class="welcome-badge">
+                <span class="material-icons-round" style="font-size: 14px;">verified</span>
+                ENTERPRISE PLATFORM
             </div>
 
-            <!-- Requested Name Format -->
+            <!-- Changed to Google Logo here -->
             <h2 class="welcome-partner-text">
-                RCB X <span class="jio">JIO</span> PLAYCODE
+                <img src="https://pngimg.com/uploads/google/google_PNG19644.png" alt="Google" style="height: 34px; object-fit: contain;"> PlayCode
             </h2>
             
             <h1 class="welcome-title">
-                Premium Digital Infrastructure<br>
-                <span>For The Modern Web.</span>
+                Secure Workspace<br>
+                <span>Portal.</span>
             </h1>
             
             <p class="welcome-subtitle">
-                Access enterprise-grade Google Play gift codes, manage digital balances, and deploy exclusive architectures through our secure Playcode portal.
+                Access enterprise-grade Google Play logic, manage digital balances, and deploy exclusive architectures securely.
             </p>
             
+            <!-- Gemini Style Input Bar CTA -->
             <button class="cta-button" id="startButton">
-                Launch Workspace <span class="material-icons-round" style="font-size: 20px;">sports_cricket</span>
+                <span class="material-icons-round" style="font-size: 20px;">add</span>
+                <span style="flex-grow: 1; text-align: left; margin-left: 8px;">Access console</span>
+                <span style="font-size: 12px; color: var(--google-text-muted); background: var(--google-surface-hover); padding: 4px 8px; border-radius: 6px; margin-right: 8px;">Pro</span>
+                <span class="material-icons-round" style="font-size: 18px;">mic</span>
             </button>
         </div>
     </section>
@@ -376,61 +306,63 @@
     <section class="services-section" id="servicesSection">
         <div class="section-header">
             <h2 class="section-title">Ecosystem Architecture</h2>
-            <p style="color: var(--md-text-muted); font-size: 18px; font-weight: 300;">Select a module to initiate your session.</p>
+            <p style="color: var(--google-text-muted); font-size: 16px; font-weight: 400;">Select a module to initiate your session.</p>
         </div>
         
         <div class="bento-grid">
-            <a href="https://playcodeindia.github.io/Choice/" target="_self" class="bento-card card-half">
+            
+            <!-- Account Management ID Added & href removed to intercept click via JS Modal -->
+            <div id="accountManagementBtn" class="bento-card card-half">
                 <div class="card-icon"><span class="material-icons-round">account_balance_wallet</span></div>
                 <h3 class="card-title">Account Management</h3>
-                <p class="card-description">Access premium Google Play logic, check operational balances, and manage your root account securely with our automated ledger.</p>
-                <span class="card-cta">Access Console <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
-            </a>
+                <p class="card-description">Access premium logic, check operational balances, and manage your root account securely.</p>
+                <span class="card-cta">Access Console <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
+            </div>
 
-            <a href="https://playcodeindia.github.io/Invest/" target="_self" class="bento-card card-half" style="border-color: rgba(229, 166, 43, 0.3);">
-                <div class="card-new-tag" style="background: rgba(229, 166, 43, 0.2); color: #E5A62B; border-color: rgba(229, 166, 43, 0.4);">NEW</div>
-                <div class="card-icon" style="background: rgba(229, 166, 43, 0.15); border-color: rgba(229, 166, 43, 0.3); color: #E5A62B;">
+            <a href="https://playcodeindia.github.io/Invest/" target="_self" class="bento-card card-half">
+                <div class="card-new-tag">NEW</div>
+                <div class="card-icon">
                     <span class="material-icons-round">pie_chart</span>
                 </div>
                 <h3 class="card-title">Playcode Invest</h3>
-                <p class="card-description">High-yield digital asset allocation, portfolio tracking, and internal fund management.</p>
-                <span class="card-cta" style="color: #E5A62B;">Explore Growth <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
+                <p class="card-description">Asset allocation, portfolio tracking, and internal fund management.</p>
+                <span class="card-cta">Explore Growth <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
             </a>
 
             <a href="https://playcodeindia.github.io/Google/" target="_self" class="bento-card card-half">
                 <div class="card-icon"><span class="material-icons-round">code</span></div>
                 <h3 class="card-title">Code Generation</h3>
-                <p class="card-description">Organize and deploy Playcodes efficiently across endpoints securely.</p>
-                <span class="card-cta">Access Engine <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
+                <p class="card-description">Organize and deploy codes efficiently across endpoints securely.</p>
+                <span class="card-cta">Access Engine <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
             </a>
             
-            <a href="https://playcodeindia.github.io/Rewards" target="_self" class="bento-card card-half" style="border-color: rgba(215, 26, 33, 0.4); box-shadow: 0 0 24px rgba(215, 26, 33, 0.15);">
+            <a href="https://playcodeindia.github.io/Rewards" target="_self" class="bento-card card-half">
                 <div class="card-new-tag">HOT</div>
-                <div class="card-icon" style="background: rgba(215, 26, 33, 0.15); border-color: rgba(215, 26, 33, 0.3); color: #FFFFFF;">
+                <div class="card-icon">
                     <span class="material-icons-round">stars</span>
                 </div>
                 <h3 class="card-title">Playcode Rewards+</h3>
-                <p class="card-description">Unlock exclusive digital perks, claim milestone badges, and redeem your hard-earned points.</p>
-                <span class="card-cta">Claim Rewards <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></span>
+                <p class="card-description">Unlock exclusive perks, claim milestone badges, and redeem points.</p>
+                <span class="card-cta">Claim Rewards <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
             </a>
             
             <div class="bento-card card-full">
                 <div>
-                    <h3 class="card-title" style="font-size: 36px;">Creative Suite</h3>
-                    <p class="card-description" style="font-size: 18px;">Additional modules to enhance your development and media workflow directly within the browser ecosystem.</p>
+                    <h3 class="card-title" style="font-size: 28px;">Creative Suite</h3>
+                    <p class="card-description" style="font-size: 16px;">Additional modules to enhance your development directly within the ecosystem.</p>
                 </div>
                 <div class="tools-grid">
                     <a href="https://playcodeindia.github.io/PlaycodeAi/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: #FFFFFF; margin-bottom: 12px;">smart_toy</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 600;">Gemini AI</h4>
+                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">smart_toy</span>
+                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Gemini AI</h4>
                     </a>
                     <a href="https://playcodeindia.github.io/video/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: var(--rcb-red); margin-bottom: 12px;">videocam</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 600;">Video Engine</h4>
+                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">videocam</span>
+                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Video Engine</h4>
                     </a>
                     <a href="https://playcodeindia.github.io/Media/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 36px; color: var(--rcb-gold); margin-bottom: 12px;">play_circle</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 600;">Audio Player</h4>
+                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">play_circle</span>
+                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Audio Player</h4>
                     </a>
                 </div>
             </div>
@@ -439,25 +371,12 @@
 
     <footer class="main-footer" id="footerSection" style="display: none;">
         <div class="footer-content">
-            <div>
-                <div class="footer-partner-logos">
-                    <img src="https://i.ibb.co/fd61d9Hf/RCB-logo-upscaled.png" alt="RCB" class="rcb-logo-footer">
-                    <img src="https://i.ibb.co/qL11nJmy/Chat-GPT-Image-Apr-22-2026-01-14-43-PM-1.png" alt="Jio" class="jio-logo-footer">
-                    <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="jio-logo-footer flip-logo-anim">
-                </div>
-                <p style="color:var(--md-text-muted); font-size:15px; font-weight: 300; max-width:380px;">
-                    Operated exclusively by Reliance Jio. Owned by Google LLC.
-                </p>
-                <div class="footer-disclaimer">
-                    <span class="material-icons-round" style="font-size: 14px; color: var(--rcb-red); vertical-align: middle;">info</span>
-                    <span style="color:#FFF; font-size: 13px; font-weight: 500;">Note: RCB is strictly an Official Brand Partner and does not operate this platform.</span>
-                </div>
-            </div>
             <div class="footer-links">
                 <a href="https://playcodeindia.github.io/Privacypolicies/">Privacy Framework</a>
                 <a href="https://playcodeindia.github.io/PlaycodeAi/">AI Assistant</a>
-                <p style="color: #666; font-size: 13px; margin-top: 32px;">© 2026 PlayCode India. All rights reserved.</p>
+                <a href="mailto:playcodeagent@gmail.com">Contact Support</a>
             </div>
+            <p style="color: var(--google-text-muted); font-size: 12px; margin-top: 8px;">© 2026 PlayCode India. Owned by Google LLC.</p>
         </div>
     </footer>
 
@@ -469,7 +388,9 @@
         const backToWelcomeBtn = document.getElementById('backToWelcomeBtn');
         const pageTransition = document.getElementById('pageTransition');
         const contactBtn = document.getElementById('contactBtn');
+        const accountManagementBtn = document.getElementById('accountManagementBtn');
         
+        // Main Access Button Logic
         startButton.addEventListener('click', () => {
             pageTransition.classList.add('active');
             welcomeScreen.classList.add('exit');
@@ -483,9 +404,9 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 1200);
         });
-        
+
+        // Logo Click to go back to Welcome Screen
         backToWelcomeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
             if(welcomeScreen.style.display === 'none') {
                 servicesSection.classList.remove('active');
                 footerSection.style.display = 'none';
@@ -494,44 +415,54 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
-        
-        contactBtn.addEventListener('click', (e) => {
+
+        // Account Management Modal Logic (NEW)
+        accountManagementBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s; transform: translateZ(0);';
+            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(19, 19, 20, 0.8); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s;';
             
             const modal = document.createElement('div');
-            modal.className = 'glass-panel';
-            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translate3d(0, 20px, 0); transition: 0.3s; border: 1px solid rgba(215, 26, 33, 0.3);';
+            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translateY(20px); transition: 0.3s; background: var(--google-surface); border: 1px solid var(--panel-border); border-radius: 24px; box-shadow: 0 24px 48px rgba(0,0,0,0.4);';
             
             modal.innerHTML = `
-                <span class="material-icons-round" style="font-size: 48px; color: var(--rcb-red); margin-bottom: 16px;">headset_mic</span>
-                <h3 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px;">Node Support</h3>
-                <p style="color:var(--md-text-muted); font-size: 15px; margin-bottom:32px; font-weight: 300;">Select a method to connect with our system administrators.</p>
+                <span class="material-icons-round" style="font-size: 40px; color: var(--google-accent-blue); margin-bottom: 16px;">account_balance_wallet</span>
+                <h3 style="font-family:var(--font-display); font-size:24px; font-weight: 500; margin-bottom:8px; color: var(--google-text);">Account Management</h3>
+                <p style="color:var(--google-text-muted); font-size: 14px; margin-bottom:32px;">Select an operational path to proceed securely.</p>
                 
-                <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
-                    <a href="mailto:playcodeagent@gmail.com" style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-decoration: none; color: white; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(215, 26, 33, 0.15); display: grid; place-items: center; color: var(--rcb-red);">
-                            <span class="material-icons-round">mail</span>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                    <a href="https://playcodeindia.github.io/Balance/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
+                            <span class="material-icons-round" style="font-size: 20px;">account_balance</span>
                         </div>
                         <div style="text-align: left;">
-                            <div style="font-weight: 600; font-size: 16px; font-family: var(--font-display);">Email Support</div>
-                            <div style="font-size: 13px; color: var(--md-text-muted);">playcodeagent@gmail.com</div>
+                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Workspace</div>
+                            <div style="font-size: 13px; color: var(--google-text-muted);">Manage Balance & Operations</div>
                         </div>
                     </a>
 
-                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; background: rgba(229, 166, 43, 0.1); border: 1px solid rgba(229, 166, 43, 0.3); border-radius: 16px; text-decoration: none; color: white; transition: 0.3s; box-shadow: 0 4px 16px rgba(229, 166, 43, 0.15);" onmouseover="this.style.background='rgba(229, 166, 43, 0.2)'" onmouseout="this.style.background='rgba(229, 166, 43, 0.1)'">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(229, 166, 43, 0.2); display: grid; place-items: center; color: #E5A62B;">
-                            <span class="material-icons-round">chat</span>
+                    <a href="https://playcodeindia.github.io/Loans/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
+                            <span class="material-icons-round" style="font-size: 20px;">real_estate_agent</span>
                         </div>
                         <div style="text-align: left;">
-                            <div style="font-weight: 600; font-size: 16px; font-family: var(--font-display);">Live Chat</div>
-                            <div style="font-size: 13px; color: #E5A62B;">Connect with Support Staff</div>
+                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Loans</div>
+                            <div style="font-size: 13px; color: var(--google-text-muted);">Access Financial Services</div>
+                        </div>
+                    </a>
+
+                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
+                            <span class="material-icons-round" style="font-size: 20px;">support_agent</span>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Support</div>
+                            <div style="font-size: 13px; color: var(--google-text-muted);">Get Help & Assistance</div>
                         </div>
                     </a>
                 </div>
 
-                <button id="closeModal" class="cta-button" style="width:100%; justify-content:center; padding:14px; background: rgba(255,255,255,0.1); color: white; box-shadow: none;">Close Console</button>
+                <button id="closeAccountModal" class="support-btn-outline" style="width:100%; padding: 14px; font-size: 14px; background: var(--google-surface-hover);">Back</button>
             `;
             
             overlay.appendChild(modal);
@@ -539,12 +470,66 @@
             
             setTimeout(() => {
                 overlay.style.opacity = '1';
-                modal.style.transform = 'translate3d(0, 0, 0)';
+                modal.style.transform = 'translateY(0)';
+            }, 10);
+            
+            document.getElementById('closeAccountModal').onclick = () => {
+                overlay.style.opacity = '0';
+                modal.style.transform = 'translateY(20px)';
+                setTimeout(() => document.body.removeChild(overlay), 300);
+            };
+        });
+
+        // Support Modal Logic Restored
+        contactBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(19, 19, 20, 0.8); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s;';
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translateY(20px); transition: 0.3s; background: var(--google-surface); border: 1px solid var(--panel-border); border-radius: 24px; box-shadow: 0 24px 48px rgba(0,0,0,0.4);';
+            
+            modal.innerHTML = `
+                <span class="material-icons-round" style="font-size: 40px; color: var(--google-accent-blue); margin-bottom: 16px;">support_agent</span>
+                <h3 style="font-family:var(--font-display); font-size:24px; font-weight: 500; margin-bottom:8px; color: var(--google-text);">Node Support</h3>
+                <p style="color:var(--google-text-muted); font-size: 14px; margin-bottom:32px;">Select a method to connect with our system administrators.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                    <a href="mailto:playcodeagent@gmail.com" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
+                            <span class="material-icons-round" style="font-size: 20px;">mail</span>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">Email Support</div>
+                            <div style="font-size: 13px; color: var(--google-text-muted);">playcodeagent@gmail.com</div>
+                        </div>
+                    </a>
+
+                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='rgba(138, 180, 248, 0.4)'; this.style.background='rgba(138, 180, 248, 0.05)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(138, 180, 248, 0.1); border: 1px solid rgba(138, 180, 248, 0.2); display: grid; place-items: center; color: var(--google-accent-blue);">
+                            <span class="material-icons-round" style="font-size: 20px;">chat</span>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">Live Chat</div>
+                            <div style="font-size: 13px; color: var(--google-text-muted);">Connect with Staff</div>
+                        </div>
+                    </a>
+                </div>
+
+                <button id="closeModal" class="support-btn-outline" style="width:100%; padding: 14px; font-size: 14px; background: var(--google-surface-hover);">Close Console</button>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                modal.style.transform = 'translateY(0)';
             }, 10);
             
             document.getElementById('closeModal').onclick = () => {
                 overlay.style.opacity = '0';
-                modal.style.transform = 'translate3d(0, 20px, 0)';
+                modal.style.transform = 'translateY(20px)';
                 setTimeout(() => document.body.removeChild(overlay), 300);
             };
         });
