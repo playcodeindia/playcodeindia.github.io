@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,13 +212,15 @@
             font-family: var(--font-display); letter-spacing: 0.5px;
         }
 
-        .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; position: relative; z-index: 1; }
+        .tools-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; position: relative; z-index: 1; }
         .tool-mini-card { 
             background: var(--google-bg); border: 1px solid var(--panel-border); 
-            padding: 24px 16px; border-radius: 16px; text-align: center; text-decoration: none; color: var(--google-text); transition: 0.3s; 
+            padding: 22px 16px; border-radius: 16px; text-align: center; text-decoration: none; color: var(--google-text); transition: 0.3s; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 132px;
         }
         .tool-mini-card:hover { border-color: rgba(138, 180, 248, 0.3); background: var(--google-surface-hover); }
         .tool-mini-card:hover .material-icons-round { color: var(--google-accent-blue); }
+        .tool-mini-card h4 { white-space: nowrap; }
 
         /* --- FOOTER --- */
         .main-footer { padding: 40px 24px; background: transparent; border-top: 1px solid var(--panel-border); }
@@ -224,6 +228,156 @@
         .footer-links { display: flex; gap: 24px; }
         .footer-links a { color: var(--google-text-muted); text-decoration: none; transition: 0.2s; font-weight: 400; font-size: 13px; }
         .footer-links a:hover { color: var(--google-text); }
+
+        .download-entry {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(138, 180, 248, 0.08);
+            border: 1px solid rgba(138, 180, 248, 0.18);
+            color: var(--google-text);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+        .download-entry:hover { background: rgba(138, 180, 248, 0.14); border-color: rgba(138, 180, 248, 0.28); }
+
+        .download-modal-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .download-modal-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--google-text);
+            border: 1px solid var(--panel-border);
+            background: var(--google-surface-hover);
+            font-family: var(--font-display);
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+        .download-modal-btn:hover { border-color: rgba(138, 180, 248, 0.35); background: rgba(138, 180, 248, 0.08); transform: translateY(-1px); }
+        .download-modal-btn .material-icons-round { font-size: 18px; }
+
+        .download-credit {
+            color: var(--google-text-muted);
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .download-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(19, 19, 20, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .download-overlay.show { opacity: 1; }
+
+        .download-modal {
+            width: min(560px, 100%);
+            padding: 28px;
+            text-align: left;
+            background: linear-gradient(180deg, rgba(30, 31, 34, 0.98), rgba(24, 25, 28, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+            transform: translateY(24px) scale(0.96);
+            opacity: 0;
+        }
+
+        .download-overlay.show .download-modal { animation: downloadModalIn 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) forwards; }
+
+        .download-modal-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .download-logo-wrap {
+            width: 72px;
+            height: 72px;
+            min-width: 72px;
+            border-radius: 22px;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle at 30% 30%, rgba(138, 180, 248, 0.28), rgba(30, 31, 34, 0.92));
+            border: 1px solid rgba(138, 180, 248, 0.22);
+            box-shadow: inset 0 0 20px rgba(138, 180, 248, 0.08), 0 12px 28px rgba(0, 0, 0, 0.25);
+            animation: logoFloat 3.5s ease-in-out infinite;
+        }
+
+        .download-logo-wrap img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .download-modal-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            color: var(--google-text);
+        }
+
+        .download-modal-subtitle {
+            color: var(--google-text-muted);
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .download-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(138, 180, 248, 0.08);
+            border: 1px solid rgba(138, 180, 248, 0.16);
+            color: var(--google-accent-blue);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .download-modal-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .download-modal-close {
+            flex: 1;
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+            background: var(--google-surface-hover);
+        }
+
+        .desktop-only { display: inline-flex; }
         
         /* --- ANIMATIONS --- */
         .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--google-bg); z-index: calc(var(--z-modal) + 10); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
@@ -234,6 +388,8 @@
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes pageTransition { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; display: none; } }
         @keyframes logoReveal { 0% { transform: scale(0.1) rotate(0deg); opacity: 0; } 50% { transform: scale(1) rotate(360deg); opacity: 1; } 100% { transform: scale(0) rotate(720deg); opacity: 0; } }
+        @keyframes downloadModalIn { 0% { opacity: 0; transform: translateY(24px) scale(0.96); } 60% { opacity: 1; transform: translateY(-4px) scale(1.01); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
         /* --- RESPONSIVE FIXES --- */
         @media (max-width: 992px) {
@@ -241,6 +397,7 @@
             .card-half { grid-column: span 12; }
             .card-full { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
             .welcome-title { font-size: 48px; }
+            .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width: 768px) {
             .top-header { padding: 20px; }
@@ -252,6 +409,13 @@
             .bento-card { padding: 24px; border-radius: 20px; }
             .section-title { font-size: 28px; }
             .cta-button { width: 100%; min-width: auto; }
+            .download-modal-actions { grid-template-columns: 1fr; }
+            .desktop-only { display: none !important; }
+            .download-modal { padding: 22px; border-radius: 24px; }
+            .download-modal-top { align-items: flex-start; }
+            .download-logo-wrap { width: 64px; height: 64px; min-width: 64px; border-radius: 20px; }
+            .download-logo-wrap img { width: 38px; height: 38px; }
+            .download-modal-title { font-size: 22px; }
         }
     </style>
 </head>
@@ -364,6 +528,10 @@
                         <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">play_circle</span>
                         <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Audio Player</h4>
                     </a>
+                    <button type="button" id="openDownloadModalBtn" class="tool-mini-card" style="cursor: pointer; width: 100%;">
+                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">download</span>
+                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Download App</h4>
+                    </button>
                 </div>
             </div>
         </div>
@@ -374,6 +542,7 @@
             <div class="footer-links">
                 <a href="https://playcodeindia.github.io/Privacypolicies/">Privacy Framework</a>
                 <a href="https://playcodeindia.github.io/PlaycodeAi/">AI Assistant</a>
+                <a href="#" id="footerDownloadLink">Download App</a>
                 <a href="mailto:playcodeagent@gmail.com">Contact Support</a>
             </div>
             <p style="color: var(--google-text-muted); font-size: 12px; margin-top: 8px;">© 2026 PlayCode India. Owned by Google LLC.</p>
@@ -389,6 +558,68 @@
         const pageTransition = document.getElementById('pageTransition');
         const contactBtn = document.getElementById('contactBtn');
         const accountManagementBtn = document.getElementById('accountManagementBtn');
+        const openDownloadModalBtn = document.getElementById('openDownloadModalBtn');
+        const footerDownloadLink = document.getElementById('footerDownloadLink');
+
+        const downloadConfig = {
+            setup: 'https://drive.usercontent.google.com/download?id=1N5FuREWgiEhofgVOksYsKSQVwd4B12XR&export=download&authuser=0',
+            portable: 'https://drive.usercontent.google.com/download?id=1ojn6V1pq7HVs0UcK42w3YYrYKEscdaeD&export=download&authuser=0'
+        };
+
+        function isDesktopForDownloadPopup() {
+            return window.matchMedia('(min-width: 992px) and (orientation: landscape)').matches;
+        }
+
+        function openDownloadModal() {
+            if (!isDesktopForDownloadPopup()) return;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'download-overlay';
+
+            const modal = document.createElement('div');
+            modal.className = 'download-modal';
+
+            modal.innerHTML = `
+                <div class="download-modal-top">
+                    <div class="download-logo-wrap" aria-hidden="true">
+                        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="Playcode">
+                    </div>
+                    <div>
+                        <div class="download-badge"><span class="material-icons-round" style="font-size: 14px;">verified</span> PlayCode Desktop Download</div>
+                        <h3 class="download-modal-title">Download Playcode App for Desktop</h3>
+                        <p class="download-modal-subtitle">Choose the installer that fits your device.</p>
+                    </div>
+                </div>
+                <div class="download-credit">Credit : Samarth Dwivedi (a Professional Web Developer)</div>
+
+                <div class="download-modal-actions">
+                    <a class="download-modal-btn" href="${downloadConfig.setup}" target="_blank" rel="noopener noreferrer">
+                        <span class="material-icons-round">system_update_alt</span>
+                        <span>Setup.exe <span style="color: var(--google-text-muted); font-weight: 400;">97mb</span></span>
+                    </a>
+                    <a class="download-modal-btn" href="${downloadConfig.portable}" target="_blank" rel="noopener noreferrer">
+                        <span class="material-icons-round">folder_zip</span>
+                        <span>Portable <span style="color: var(--google-text-muted); font-weight: 400;">140mb</span></span>
+                    </a>
+                </div>
+
+                <div class="download-modal-footer">
+                    <button id="closeDownloadModal" class="support-btn-outline download-modal-close">Not Now</button>
+                </div>
+            `;
+
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            setTimeout(() => {
+                overlay.classList.add('show');
+            }, 10);
+
+            document.getElementById('closeDownloadModal').onclick = () => {
+                overlay.classList.remove('show');
+                setTimeout(() => document.body.removeChild(overlay), 250);
+            };
+        }
         
         // Main Access Button Logic
         startButton.addEventListener('click', () => {
@@ -402,6 +633,7 @@
                 
                 setTimeout(() => { pageTransition.classList.remove('active'); }, 500);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(openDownloadModal, 650);
             }, 1200);
         });
 
@@ -478,6 +710,13 @@
                 modal.style.transform = 'translateY(20px)';
                 setTimeout(() => document.body.removeChild(overlay), 300);
             };
+        });
+
+        openDownloadModalBtn.addEventListener('click', openDownloadModal);
+
+        footerDownloadLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDownloadModal();
         });
 
         // Support Modal Logic Restored
