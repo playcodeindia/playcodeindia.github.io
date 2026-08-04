@@ -1,777 +1,885 @@
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <link rel="icon" sizes="32x32" href="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GOOGLE PLAYCODE</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Google+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>Google Playcode Portal</title>
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* Smooth scrolling applied here */
+        /* ==========================================================================
+           GOOGLE PLAYCODE PORTAL - 2026 ENTERPRISE UI
+           ========================================================================== */
+        
+        :root {
+            /* Core Theme Colors - Deep Dark Google Workspace Variant */
+            --bg-base: #050507;
+            --bg-surface: rgba(24, 24, 27, 0.4);
+            --bg-surface-hover: rgba(39, 39, 42, 0.65);
+            --bg-modal: rgba(15, 15, 18, 0.95);
+            
+            /* Text & Typography */
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            
+            /* Accents */
+            --accent-blue: #4285F4;
+            --accent-red: #EA4335;
+            --accent-yellow: #FBBC05;
+            --accent-green: #34A853;
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            
+            /* Glassmorphism & Borders */
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+            --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            
+            /* Squircles & Radii - 2026 Standard */
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-xl: 40px; /* Extreme squircle */
+            --radius-full: 9999px;
+            
+            /* Animation Curves */
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Typography Scale */
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        /* --------------------------------------------------------------------------
+           RESET & BASE STYLES
+           -------------------------------------------------------------------------- */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         html { scroll-behavior: smooth; }
 
-        /* --- GOOGLE DARK THEME (Colorful AI Edition) --- */
-        :root {
-            /* Deep Dark Grey Tones */
-            --google-bg: #131314; 
-            --google-surface: #1E1F22;
-            --google-surface-hover: #282A2C;
-            --google-text: #E3E3E3;
-            --google-text-muted: #C4C7C5;
-            
-            /* AI Colorful Accents */
-            --google-accent-blue: #8AB4F8;
-            --google-accent-purple: #C58AF9;
-            --google-accent-cyan: #24C1E0;
-            
-            /* Brand Colors */
-            --g-blue: #4285F4;
-            --g-red: #EA4335;
-            --g-yellow: #FBBC05;
-            --g-green: #34A853;
-
-            --panel-border: rgba(255, 255, 255, 0.08);
-            --panel-border-hover: rgba(255, 255, 255, 0.15);
-            
-            --font-display: 'Google Sans', sans-serif;
-            --font-base: 'Inter', sans-serif;
-            
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --z-modal: 1000;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-base); }
-        
         body {
-            background-color: var(--google-bg);
-            /* Gemini-style vivid glowing auras in the background */
-            background-image: 
-                radial-gradient(circle at 15% 0%, rgba(66, 133, 244, 0.18) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(197, 138, 249, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(36, 193, 224, 0.08) 0%, transparent 60%);
-            background-attachment: fixed;
-            color: var(--google-text);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-body);
             min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--google-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--google-surface-hover); border-radius: 10px; }
-
-        @keyframes coinFlip {
-            0% { transform: perspective(600px) rotateY(0deg); }
-            100% { transform: perspective(600px) rotateY(360deg); }
-        }
-        .flip-logo-anim {
-            animation: coinFlip 4s infinite linear;
-            border-radius: 50%;
-        }
-
-        /* --- MINIMAL HEADER --- */
-        .top-header {
-            position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
-            padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .brand-logo-wrap { display: flex; align-items: center; gap: 12px; }
-        .google-g-logo { height: 26px; object-fit: contain; }
-        .playcode-logo { height: 26px; border-radius: 50%; object-fit: contain; }
-        
-        /* Outline Support Button */
-        .support-btn-outline {
-            background: transparent; color: var(--google-text);
-            border: 1px solid var(--panel-border);
-            padding: 8px 20px; border-radius: 100px;
-            font-family: var(--font-display); font-size: 13px; font-weight: 500;
-            cursor: pointer; transition: var(--transition-smooth);
-        }
-        .support-btn-outline:hover { background: rgba(255,255,255,0.05); border-color: var(--panel-border-hover); }
-
-        /* --- PANELS --- */
-        .glass-panel {
-            background: var(--google-surface); 
-            border: 1px solid var(--panel-border); 
-            border-radius: 16px; 
-            transform: translateZ(0); 
-        }
-
-        /* --- HERO / FIRST LOOK --- */
-        .welcome-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 24px; position: relative; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .welcome-screen.exit { transform: scale(0.95) translateY(-30px); opacity: 0; pointer-events: none; }
-        
-        .welcome-container { max-width: 900px; text-align: center; z-index: 1; margin-top: -40px; }
-        
-        .welcome-badge {
-            display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
-            border-radius: 100px; font-size: 13px; font-weight: 600; font-family: var(--font-display);
-            color: var(--google-accent-blue); margin-bottom: 24px; 
-            background: rgba(138, 180, 248, 0.08);
-            border: 1px solid rgba(138, 180, 248, 0.15);
-            animation: fadeUp 0.8s ease forwards; opacity: 0; transform: translateY(20px);
-            letter-spacing: 0.5px;
-        }
-
-        .welcome-title {
-            font-family: var(--font-display); font-size: 56px; font-weight: 500; line-height: 1.15; margin-bottom: 16px;
-            letter-spacing: -0.5px; animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; transform: translateY(20px);
-            color: var(--google-text);
-        }
-        
-        /* Bright AI Gradient Text */
-        .welcome-title span {
-            background: linear-gradient(90deg, var(--google-accent-blue), var(--google-accent-cyan), var(--google-accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .welcome-partner-text {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-family: var(--font-display); font-size: 24px; font-weight: 500; color: var(--google-text);
-            margin-bottom: 24px; letter-spacing: -0.5px;
-            animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0; transform: translateY(20px);
-        }
-
-        .welcome-subtitle {
-            font-size: 16px; color: var(--google-text-muted); max-width: 600px; margin: 0 auto 48px; line-height: 1.6;
-            animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; transform: translateY(20px);
-            font-weight: 400;
-        }
-
-        /* GEMINI PROMPT BAR STYLE BUTTON */
-        .cta-button {
-            display: inline-flex; align-items: center; justify-content: center; gap: 12px; 
-            padding: 16px 32px;
-            background: var(--google-surface); 
-            color: var(--google-text);
-            border: 1px solid var(--panel-border); 
-            border-radius: 100px; /* Pill Shape */
-            font-family: var(--font-display); font-size: 15px; font-weight: 500;
-            cursor: pointer; transition: var(--transition-smooth); 
-            animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; transform: translateY(20px);
-            min-width: 280px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-        }
-        .cta-button:hover { 
-            background: var(--google-surface-hover); 
-            border-color: var(--panel-border-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-        }
-        .cta-button:active { transform: translateY(0px); }
-        .cta-button .material-icons-round { color: var(--google-text-muted); }
-
-        /* --- SERVICES (BENTO GRID) --- */
-        .services-section { padding: 80px 24px 120px; display: none; opacity: 0; }
-        .services-section.active { display: block; animation: fadeIn 0.8s ease forwards; }
-        
-        .section-header { text-align: center; margin-bottom: 64px; }
-        .section-title { font-family: var(--font-display); font-size: 36px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.5px; }
-
-        .bento-grid {
-            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
-        }
-
-        .bento-card {
-            background: rgba(30, 31, 34, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--panel-border); border-radius: 24px;
-            padding: 32px; display: flex; flex-direction: column; transition: var(--transition-smooth);
-            text-decoration: none; color: inherit; position: relative; overflow: hidden; cursor: pointer;
-        }
-        .bento-card:hover { border-color: rgba(138, 180, 248, 0.3); background: var(--google-surface-hover); transform: translateY(-4px); }
-        
-        .card-half { grid-column: span 6; }
-        .card-full { grid-column: span 12; display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 40px; align-items: center; }
-
-        .card-icon {
-            width: 56px; height: 56px; min-width: 56px; border-radius: 50%; 
-            display: grid; place-items: center; 
-            background: var(--google-surface-hover); border: 1px solid var(--panel-border);
-            color: var(--google-text); margin-bottom: 24px; position: relative; z-index: 1;
-            transition: var(--transition-smooth);
-        }
-        .bento-card:hover .card-icon { background: rgba(138, 180, 248, 0.1); color: var(--google-accent-blue); border-color: rgba(138, 180, 248, 0.2); }
-        .card-icon .material-icons-round { font-size: 24px; }
-
-        .card-title { font-family: var(--font-display); font-size: 22px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.3px; position: relative; z-index: 1; }
-        .card-description { color: var(--google-text-muted); font-size: 15px; margin-bottom: 24px; flex-grow: 1; font-weight: 400; position: relative; z-index: 1; }
-        
-        .card-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--google-accent-blue); font-weight: 500; font-family: var(--font-display); font-size: 14px; position: relative; z-index: 1; }
-
-        .card-new-tag {
-            position: absolute; top: 24px; right: 24px; z-index: 1;
-            background: rgba(197, 138, 249, 0.1); color: var(--google-accent-purple);
-            padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 600;
-            border: 1px solid rgba(197, 138, 249, 0.2); text-transform: uppercase;
-            font-family: var(--font-display); letter-spacing: 0.5px;
-        }
-
-        .tools-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; position: relative; z-index: 1; }
-        .tool-mini-card { 
-            background: var(--google-bg); border: 1px solid var(--panel-border); 
-            padding: 22px 16px; border-radius: 16px; text-align: center; text-decoration: none; color: var(--google-text); transition: 0.3s; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 132px;
-        }
-        .tool-mini-card:hover { border-color: rgba(138, 180, 248, 0.3); background: var(--google-surface-hover); }
-        .tool-mini-card:hover .material-icons-round { color: var(--google-accent-blue); }
-        .tool-mini-card h4 { white-space: nowrap; }
-
-        /* --- FOOTER --- */
-        .main-footer { padding: 40px 24px; background: transparent; border-top: 1px solid var(--panel-border); }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 16px; text-align: center; }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-links a { color: var(--google-text-muted); text-decoration: none; transition: 0.2s; font-weight: 400; font-size: 13px; }
-        .footer-links a:hover { color: var(--google-text); }
-
-        .download-entry {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(138, 180, 248, 0.08);
-            border: 1px solid rgba(138, 180, 248, 0.18);
-            color: var(--google-text);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: var(--transition-smooth);
-        }
-        .download-entry:hover { background: rgba(138, 180, 248, 0.14); border-color: rgba(138, 180, 248, 0.28); }
-
-        .download-modal-actions {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .download-modal-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 16px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--google-text);
-            border: 1px solid var(--panel-border);
-            background: var(--google-surface-hover);
-            font-family: var(--font-display);
-            font-weight: 500;
-            transition: var(--transition-smooth);
-        }
-        .download-modal-btn:hover { border-color: rgba(138, 180, 248, 0.35); background: rgba(138, 180, 248, 0.08); transform: translateY(-1px); }
-        .download-modal-btn .material-icons-round { font-size: 18px; }
-
-        .download-credit {
-            color: var(--google-text-muted);
-            font-size: 12px;
-            margin-bottom: 18px;
-        }
-
-        .download-overlay {
+        /* Background Canvas Element - Clean dark background without intrusive purple glows */
+        #bg-canvas {
             position: fixed;
-            inset: 0;
-            background: rgba(19, 19, 20, 0.78);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            z-index: 2001;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            opacity: 0.8;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, rgba(66, 133, 244, 0.05) 0%, transparent 70%);
+        }
+
+        .app-wrapper {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.25s ease;
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
         }
 
-        .download-overlay.show { opacity: 1; }
-
-        .download-modal {
-            width: min(560px, 100%);
-            padding: 28px;
-            text-align: left;
-            background: linear-gradient(180deg, rgba(30, 31, 34, 0.98), rgba(24, 25, 28, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
-            transform: translateY(24px) scale(0.96);
-            opacity: 0;
+        /* --------------------------------------------------------------------------
+           SIDEBAR
+           -------------------------------------------------------------------------- */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(5, 5, 7, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-right: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 24px;
+            z-index: 100;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .download-overlay.show .download-modal { animation: downloadModalIn 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) forwards; }
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
 
-        .download-modal-top {
+        .sidebar-brand {
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 18px;
+            margin-bottom: 48px;
+            text-decoration: none;
         }
 
-        .download-logo-wrap {
-            width: 72px;
-            height: 72px;
-            min-width: 72px;
-            border-radius: 22px;
-            display: grid;
-            place-items: center;
-            background: radial-gradient(circle at 30% 30%, rgba(138, 180, 248, 0.28), rgba(30, 31, 34, 0.92));
-            border: 1px solid rgba(138, 180, 248, 0.22);
-            box-shadow: inset 0 0 20px rgba(138, 180, 248, 0.08), 0 12px 28px rgba(0, 0, 0, 0.25);
-            animation: logoFloat 3.5s ease-in-out infinite;
+        .sidebar-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
-        .download-logo-wrap img {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-            border-radius: 12px;
-        }
-
-        .download-modal-title {
+        .sidebar-brand span {
             font-family: var(--font-display);
             font-size: 24px;
-            font-weight: 500;
-            line-height: 1.2;
-            margin-bottom: 8px;
-            color: var(--google-text);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
         }
 
-        .download-modal-subtitle {
-            color: var(--google-text-muted);
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-
-        .download-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(138, 180, 248, 0.08);
-            border: 1px solid rgba(138, 180, 248, 0.16);
-            color: var(--google-accent-blue);
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
-
-        .download-modal-footer {
+        .nav-links {
             display: flex;
-            gap: 12px;
-            margin-top: 8px;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .download-modal-close {
-            flex: 1;
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+        /* --------------------------------------------------------------------------
+           MAIN CONTENT AREA & TOPBAR
+           -------------------------------------------------------------------------- */
+        .main-wrapper {
+            flex-grow: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .main-wrapper.expanded { margin-left: 0; }
+
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .menu-toggle {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--transition-bounce);
+        }
+
+        .menu-toggle:hover {
+            background: var(--text-primary);
+            color: var(--bg-base);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle svg { width: 24px; height: 24px; fill: currentColor; transition: transform 0.4s ease; }
+        .menu-toggle.active svg { transform: rotate(180deg); }
+
+        .content-container {
+            padding: 20px 60px 80px;
+            max-width: 1600px;
+            margin: 0 auto;
             width: 100%;
-            padding: 14px;
-            font-size: 14px;
-            background: var(--google-surface-hover);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .desktop-only { display: inline-flex; }
+        .greeting-section {
+            margin-bottom: 64px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .greeting-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .greeting-subtitle {
+            font-size: 18px;
+            color: var(--accent-blue);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* --------------------------------------------------------------------------
+           ECOSYSTEM LAUNCHER (App Icon Grid)
+           -------------------------------------------------------------------------- */
+        .launcher-section {
+            margin-bottom: 80px;
+            animation: fadeUp 1s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        .section-header {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 48px 24px;
+            justify-items: center;
+        }
         
-        /* --- ANIMATIONS --- */
-        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--google-bg); z-index: calc(var(--z-modal) + 10); display: none; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
-        .page-transition.active { display: flex; animation: pageTransition 1.2s forwards; pointer-events: all; }
-        .transition-logo { width: 100px; border-radius: 20px; transform: scale(0.1); opacity: 0; animation: logoReveal 0.8s 0.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-        @keyframes fadeUp { to { opacity: 1; transform: translate3d(0, 0, 0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes pageTransition { 0% { opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; display: none; } }
-        @keyframes logoReveal { 0% { transform: scale(0.1) rotate(0deg); opacity: 0; } 50% { transform: scale(1) rotate(360deg); opacity: 1; } 100% { transform: scale(0) rotate(720deg); opacity: 0; } }
-        @keyframes downloadModalIn { 0% { opacity: 0; transform: translateY(24px) scale(0.96); } 60% { opacity: 1; transform: translateY(-4px) scale(1.01); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-
-        /* --- RESPONSIVE FIXES --- */
-        @media (max-width: 992px) {
-            .bento-grid { gap: 16px; }
-            .card-half { grid-column: span 12; }
-            .card-full { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-            .welcome-title { font-size: 48px; }
-            .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            gap: 16px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
         }
-        @media (max-width: 768px) {
-            .top-header { padding: 20px; }
-            .welcome-screen { padding: 80px 20px 40px; }
-            .welcome-title { font-size: 36px; }
-            .welcome-partner-text { font-size: 20px; }
-            .welcome-subtitle { font-size: 15px; }
-            .tools-grid { grid-template-columns: 1fr; }
-            .bento-card { padding: 24px; border-radius: 20px; }
-            .section-title { font-size: 28px; }
-            .cta-button { width: 100%; min-width: auto; }
-            .download-modal-actions { grid-template-columns: 1fr; }
-            .desktop-only { display: none !important; }
-            .download-modal { padding: 22px; border-radius: 24px; }
-            .download-modal-top { align-items: flex-start; }
-            .download-logo-wrap { width: 64px; height: 64px; min-width: 64px; border-radius: 20px; }
-            .download-logo-wrap img { width: 38px; height: 38px; }
-            .download-modal-title { font-size: 22px; }
+
+        /* Container to fix badge positioning issue */
+        .app-icon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .app-icon-wrapper {
+            width: 96px;
+            height: 96px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            transition: var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-item:hover .app-icon-wrapper {
+            transform: translateY(-8px) scale(1.05);
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .app-icon-wrapper svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--text-primary);
+            transition: var(--transition-smooth);
+            z-index: 2;
+        }
+
+        /* Badges */
+        .badge-new, .badge-ad {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--bg-base);
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-family: var(--font-display);
+        }
+        
+        .badge-new { background: var(--accent-purple); color: white; }
+        .badge-ad { background: var(--accent-yellow); color: #000; }
+
+        .app-label {
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0.9;
+            transition: var(--transition-smooth);
+            line-height: 1.3;
+        }
+
+        .app-item:hover .app-label {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Specific App Colors & Gradients */
+        .app-item.matrix .app-icon-wrapper { background: linear-gradient(135deg, #27272a, #09090b); border-color: rgba(161, 161, 170, 0.3); }
+        .app-item.invest .app-icon-wrapper { background: linear-gradient(135deg, #1e3a8a, #020617); border-color: rgba(59, 130, 246, 0.3); }
+        .app-item.code .app-icon-wrapper { background: linear-gradient(135deg, #581c87, #1e1b4b); border-color: rgba(168, 85, 247, 0.3); }
+        
+        /* Gemini App - Sparkle */
+        .app-item.gemini .app-icon-wrapper { background: linear-gradient(135deg, #0f172a, #020617); border-color: rgba(56, 189, 248, 0.4); }
+        .app-item.gemini .app-icon-wrapper svg { fill: url(#gemini-grad); }
+
+        .app-item.video .app-icon-wrapper { background: linear-gradient(135deg, #991b1b, #450a0a); border-color: rgba(239, 68, 68, 0.3); }
+        .app-item.download .app-icon-wrapper { background: linear-gradient(135deg, #0f766e, #042f2e); border-color: rgba(20, 184, 166, 0.3); }
+        
+        /* Quera Music CSS Recreation */
+        .app-item.quera .app-icon-wrapper { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); border: none; }
+        
+        .app-item.privacy .app-icon-wrapper { background: linear-gradient(135deg, #374151, #111827); border-color: rgba(156, 163, 175, 0.3); }
+
+        /* --------------------------------------------------------------------------
+           MODALS
+           -------------------------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center; 
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .modal-content {
+            background: var(--bg-modal); 
+            border: 1px solid var(--border-highlight); 
+            border-radius: var(--radius-lg); 
+            padding: 40px; width: 90%; max-width: 500px;
+            transform: translateY(30px) scale(0.95); 
+            transition: var(--transition-bounce); 
+            box-shadow: 0 32px 64px rgba(0,0,0,0.8); 
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+        
+        .close-modal-btn {
+            position: absolute; top: 24px; right: 24px; 
+            background: var(--bg-surface-hover); border: none; 
+            width: 36px; height: 36px; border-radius: 50%; 
+            color: var(--text-secondary); cursor: pointer; 
+            display: grid; place-items: center; transition: 0.2s;
+        }
+        
+        .close-modal-btn:hover { background: white; color: black; }
+
+        .modal-action-btn {
+            display: flex; align-items: center; gap: 16px; padding: 16px 20px; 
+            background: var(--bg-surface); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md); color: white; text-decoration: none; 
+            transition: 0.3s; margin-bottom: 12px; text-align: left; 
+            cursor: pointer; width: 100%; font-family: var(--font-body);
+        }
+        
+        .modal-action-btn:hover { 
+            background: rgba(255, 255, 255, 0.05); 
+            border-color: rgba(255, 255, 255, 0.3); 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+        }
+        
+        .modal-action-btn svg { fill: currentColor; width: 28px; height: 28px; }
+        .modal-text-content h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+        .modal-text-content p { font-size: 13px; color: var(--text-secondary); }
+
+        /* --------------------------------------------------------------------------
+           FOOTER
+           -------------------------------------------------------------------------- */
+        .site-footer {
+            text-align: center; padding: 40px 20px; font-family: var(--font-display); 
+            color: var(--text-tertiary); font-size: 14px; margin-top: auto;
+        }
+        
+        .site-footer span { color: var(--text-primary); font-weight: 700; font-size: 16px; display: block; margin-top: 6px; }
+
+        @keyframes fadeUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* --------------------------------------------------------------------------
+           RESPONSIVE DESIGN
+           -------------------------------------------------------------------------- */
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); box-shadow: 0 0 0 100vw rgba(0,0,0,0.7); }
+            .main-wrapper { margin-left: 0; }
+            .content-container { padding: 20px 24px 60px; }
+        }
+        
+        @media (max-width: 640px) {
+            .app-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
+            .app-icon-wrapper { width: 84px; height: 84px; border-radius: 32px; }
+            .app-icon-wrapper svg { width: 34px; height: 34px; }
+            .top-bar { padding: 16px 20px; }
+            .greeting-title { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page-transition" id="pageTransition">
-        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="transition-logo flip-logo-anim">
+    <!-- Dynamic SVG Gradients Definition -->
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="gemini-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8AB4F8" />
+                <stop offset="50%" stop-color="#C58AF9" />
+                <stop offset="100%" stop-color="#24C1E0" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Canvas Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="app-wrapper">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <a href="#" class="sidebar-brand">
+                <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode Logo">
+                <span>PlayCode</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
+                <a href="https://playcodeindia.github.io/Google/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg> Deployments</a>
+                <a href="https://playcodeindia.github.io/Invest/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg> Investments</a>
+                <a href="https://playcodeindia.github.io/PlaycodeAi/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M19 3l-1.5 3.5L14 8l3.5 1.5L19 13l1.5-3.5L24 8l-3.5-1.5L19 3zm-7 2L8.5 12 5 13.5 8.5 15 12 22l3.5-7L19 13.5 15.5 12 12 5z"/></svg> AI Terminal</a>
+                <a href="https://playcodeindia.github.io/Support/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> Support Center</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN WRAPPER -->
+        <main class="main-wrapper" id="mainWrapper">
+            
+            <header class="top-bar">
+                <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu">
+                    <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </header>
+
+            <div class="content-container">
+                <div class="greeting-section">
+                    <h1 class="greeting-title" id="greetingText">System Online.</h1>
+                    <p class="greeting-subtitle">Google Playcode Portal</p>
+                </div>
+
+                <div class="launcher-section">
+                    <div class="section-header">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="var(--accent-blue)"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                        Ecosystem Modules
+                    </div>
+                    
+                    <div class="app-grid">
+                        
+                        <!-- 1. Account Matrix (Modal) -->
+                        <button type="button" class="app-item matrix" onclick="openModal('account')">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                            </div>
+                            <span class="app-label">Account<br>Matrix</span>
+                        </button>
+
+                        <!-- 2. Playcode Invest -->
+                        <a href="https://playcodeindia.github.io/Invest/" class="app-item invest">
+                            <div class="app-icon-container">
+                                <!-- Fixed absolute positioning for NEW badge -->
+                                <div class="badge-new">NEW</div>
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
+                            </div>
+                            <span class="app-label">Playcode<br>Invest</span>
+                        </a>
+
+                        <!-- 3. Code Generator -->
+                        <a href="https://playcodeindia.github.io/Google/" class="app-item code">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
+                            </div>
+                            <span class="app-label">Code<br>Generator</span>
+                        </a>
+
+                        <!-- 4. Gemini Terminal (Updated Sparkle Icon) -->
+                        <a href="https://playcodeindia.github.io/PlaycodeAi/" class="app-item gemini">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper">
+                                    <svg viewBox="0 0 24 24"><path d="M19 3l-1.5 3.5L14 8l3.5 1.5L19 13l1.5-3.5L24 8l-3.5-1.5L19 3zm-7 2L8.5 12 5 13.5 8.5 15 12 22l3.5-7L19 13.5 15.5 12 12 5z"/></svg>
+                                </div>
+                            </div>
+                            <span class="app-label">Gemini<br>Terminal</span>
+                        </a>
+
+                        <!-- 5. Video Engine -->
+                        <a href="https://playcodeindia.github.io/video/" class="app-item video">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg></div>
+                            </div>
+                            <span class="app-label">Video<br>Engine</span>
+                        </a>
+
+                        <!-- 6. Download App (Modal) -->
+                        <button type="button" class="app-item download" onclick="openModal('download')">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+                            </div>
+                            <span class="app-label">Download<br>App</span>
+                        </button>
+
+                        <!-- 7. Quera Music (Ad Modal / Custom SVG) -->
+                        <button type="button" class="app-item quera" onclick="openModal('quera')">
+                            <div class="app-icon-container">
+                                <div class="badge-ad">AD</div>
+                                <div class="app-icon-wrapper">
+                                    <!-- CSS/SVG Recreated Logo -->
+                                    <svg viewBox="0 0 24 24" width="48" height="48" fill="white">
+                                        <rect x="5" y="10" width="2.5" height="4" rx="1.25" />
+                                        <rect x="9" y="7" width="2.5" height="10" rx="1.25" />
+                                        <rect x="13" y="3" width="2.5" height="18" rx="1.25" />
+                                        <rect x="17" y="7" width="2.5" height="10" rx="1.25" />
+                                        <rect x="21" y="10" width="2.5" height="4" rx="1.25" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="app-label">Quera<br>Music</span>
+                        </button>
+
+                        <!-- 8. Privacy (Modal) -->
+                        <button type="button" class="app-item privacy" onclick="openModal('privacy')">
+                            <div class="app-icon-container">
+                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+                            </div>
+                            <span class="app-label">Privacy<br>Center</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <footer class="site-footer">
+                    &copy; 2026 PlayCode INDIA.
+                    <span>Design by Google</span>
+                </footer>
+            </div>
+        </main>
     </div>
 
-    <!-- Minimal Header with Logos and Support Button -->
-    <header class="top-header" id="topHeader">
-        <div class="brand-logo-wrap" id="backToWelcomeBtn" style="cursor: pointer;">
-            <!-- Google Standard G Logo -->
-            <img src="https://pngimg.com/uploads/google/google_PNG19644.png" alt="Google" class="google-g-logo">
-            <span style="color: rgba(255,255,255,0.2);">|</span>
-            <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode" class="playcode-logo flip-logo-anim">
+    <!-- UNIVERSAL MODAL SYSTEM -->
+    <div class="modal-overlay" id="universalModal">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal Content Injected via JS -->
         </div>
-        <button id="contactBtn" class="support-btn-outline">Support</button>
-    </header>
-    
-    <section class="welcome-screen" id="welcomeScreen">
-        <div class="welcome-container">
-            <div class="welcome-badge">
-                <span class="material-icons-round" style="font-size: 14px;">verified</span>
-                Google Play Redeem Code Platform
-            </div>
+    </div>
 
-            <!-- Changed to Google Logo here -->
-            <h2 class="welcome-partner-text">
-                <img src="https://pngimg.com/uploads/google/google_PNG19644.png" alt="Google" style="height: 34px; object-fit: contain;"> PlayCode
-            </h2>
-            
-            <h1 class="welcome-title">
-                Welcome To Playcode<br>
-                <span>Workspace.</span>
-            </h1>
-            
-            <p class="welcome-subtitle">
-                Access enterprise-grade Google Play logic, manage digital balances, and deploy exclusive architectures securely.
-            </p>
-            
-            <!-- Gemini Style Input Bar CTA -->
-            <button class="cta-button" id="startButton">
-                <span class="material-icons-round" style="font-size: 20px;">add</span>
-                <span style="flex-grow: 1; text-align: left; margin-left: 8px;">Access console</span>
-                <span style="font-size: 12px; color: var(--google-text-muted); background: var(--google-surface-hover); padding: 4px 8px; border-radius: 6px; margin-right: 8px;">Pro</span>
-                <span class="material-icons-round" style="font-size: 18px;">mic</span>
-            </button>
-        </div>
-    </section>
-
-    <section class="services-section" id="servicesSection">
-        <div class="section-header">
-            <h2 class="section-title">Ecosystem Architecture</h2>
-            <p style="color: var(--google-text-muted); font-size: 16px; font-weight: 400;">Select a module to initiate your session.</p>
-        </div>
-        
-        <div class="bento-grid">
-            
-            <!-- Account Management ID Added & href removed to intercept click via JS Modal -->
-            <div id="accountManagementBtn" class="bento-card card-half">
-                <div class="card-icon"><span class="material-icons-round">account_balance_wallet</span></div>
-                <h3 class="card-title">Account Management</h3>
-                <p class="card-description">Access premium logic, check operational balances, and manage your root account securely.</p>
-                <span class="card-cta">Access Console <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
-            </div>
-
-            <a href="https://playcodeindia.github.io/Invest/" target="_self" class="bento-card card-half">
-                <div class="card-new-tag">NEW</div>
-                <div class="card-icon">
-                    <span class="material-icons-round">pie_chart</span>
-                </div>
-                <h3 class="card-title">Playcode Invest</h3>
-                <p class="card-description">Asset allocation, portfolio tracking, and internal fund management.</p>
-                <span class="card-cta">Explore Growth <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
-            </a>
-
-            <a href="https://playcodeindia.github.io/Google/" target="_self" class="bento-card card-half">
-                <div class="card-icon"><span class="material-icons-round">code</span></div>
-                <h3 class="card-title">Code Generation</h3>
-                <p class="card-description">Organize and deploy codes efficiently across endpoints securely.</p>
-                <span class="card-cta">Access Engine <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
-            </a>
-            
-            <a href="https://playcodeindia.github.io/Rewards" target="_self" class="bento-card card-half">
-                <div class="card-new-tag">HOT</div>
-                <div class="card-icon">
-                    <span class="material-icons-round">stars</span>
-                </div>
-                <h3 class="card-title">Playcode Rewards+</h3>
-                <p class="card-description">Unlock exclusive perks, claim milestone badges, and redeem points.</p>
-                <span class="card-cta">Claim Rewards <span class="material-icons-round" style="font-size: 16px;">arrow_forward</span></span>
-            </a>
-            
-            <div class="bento-card card-full">
-                <div>
-                    <h3 class="card-title" style="font-size: 28px;">Creative Suite</h3>
-                    <p class="card-description" style="font-size: 16px;">Additional modules to enhance your development directly within the ecosystem.</p>
-                </div>
-                <div class="tools-grid">
-                    <a href="https://playcodeindia.github.io/PlaycodeAi/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">smart_toy</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Gemini AI</h4>
-                    </a>
-                    <a href="https://playcodeindia.github.io/video/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">videocam</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Video Engine</h4>
-                    </a>
-                    <a href="https://playcodeindia.github.io/Media/" target="_self" class="tool-mini-card">
-                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">play_circle</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Audio Player</h4>
-                    </a>
-                    <button type="button" id="openDownloadModalBtn" class="tool-mini-card" style="cursor: pointer; width: 100%;">
-                        <span class="material-icons-round" style="font-size: 28px; margin-bottom: 8px;">download</span>
-                        <h4 style="font-family: var(--font-display); font-weight: 500; font-size: 14px;">Download App</h4>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="main-footer" id="footerSection" style="display: none;">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://playcodeindia.github.io/Privacypolicies/">Privacy Framework</a>
-                <a href="https://playcodeindia.github.io/PlaycodeAi/">AI Assistant</a>
-                <a href="#" id="footerDownloadLink">Download App</a>
-                <a href="mailto:playcodeagent@gmail.com">Contact Support</a>
-            </div>
-            <p style="color: var(--google-text-muted); font-size: 12px; margin-top: 8px;">© 2026 PlayCode India. Owned by Google LLC.</p>
-        </div>
-    </footer>
-
+    <!-- SCRIPTS -->
     <script>
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const servicesSection = document.getElementById('servicesSection');
-        const footerSection = document.getElementById('footerSection');
-        const startButton = document.getElementById('startButton');
-        const backToWelcomeBtn = document.getElementById('backToWelcomeBtn');
-        const pageTransition = document.getElementById('pageTransition');
-        const contactBtn = document.getElementById('contactBtn');
-        const accountManagementBtn = document.getElementById('accountManagementBtn');
-        const openDownloadModalBtn = document.getElementById('openDownloadModalBtn');
-        const footerDownloadLink = document.getElementById('footerDownloadLink');
-
-        const downloadConfig = {
-            setup: 'https://drive.usercontent.google.com/download?id=1N5FuREWgiEhofgVOksYsKSQVwd4B12XR&export=download&authuser=0',
-            portable: 'https://drive.usercontent.google.com/download?id=1ojn6V1pq7HVs0UcK42w3YYrYKEscdaeD&export=download&authuser=0'
-        };
-
-        function isDesktopForDownloadPopup() {
-            return window.matchMedia('(min-width: 992px) and (orientation: landscape)').matches;
-        }
-
-        function openDownloadModal() {
-            if (!isDesktopForDownloadPopup()) return;
-
-            const overlay = document.createElement('div');
-            overlay.className = 'download-overlay';
-
-            const modal = document.createElement('div');
-            modal.className = 'download-modal';
-
-            modal.innerHTML = `
-                <div class="download-modal-top">
-                    <div class="download-logo-wrap" aria-hidden="true">
-                        <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="Playcode">
-                    </div>
-                    <div>
-                        <div class="download-badge"><span class="material-icons-round" style="font-size: 14px;">verified</span> PlayCode Desktop Download</div>
-                        <h3 class="download-modal-title">Download Playcode App for Desktop</h3>
-                        <p class="download-modal-subtitle">Choose the installer that fits your device.</p>
-                    </div>
-                </div>
-                <div class="download-credit">Credit : Samarth Dwivedi (a Professional Web Developer)</div>
-
-                <div class="download-modal-actions">
-                    <a class="download-modal-btn" href="${downloadConfig.setup}" target="_blank" rel="noopener noreferrer">
-                        <span class="material-icons-round">system_update_alt</span>
-                        <span>Setup.exe <span style="color: var(--google-text-muted); font-weight: 400;">97mb</span></span>
-                    </a>
-                    <a class="download-modal-btn" href="${downloadConfig.portable}" target="_blank" rel="noopener noreferrer">
-                        <span class="material-icons-round">folder_zip</span>
-                        <span>Portable <span style="color: var(--google-text-muted); font-weight: 400;">140mb</span></span>
-                    </a>
-                </div>
-
-                <div class="download-modal-footer">
-                    <button id="closeDownloadModal" class="support-btn-outline download-modal-close">Not Now</button>
-                </div>
-            `;
-
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-
-            setTimeout(() => {
-                overlay.classList.add('show');
-            }, 10);
-
-            document.getElementById('closeDownloadModal').onclick = () => {
-                overlay.classList.remove('show');
-                setTimeout(() => document.body.removeChild(overlay), 250);
-            };
-        }
+        // ----------------------------------------------------------------------
+        // Sidebar Toggle Logic (Bug-Free)
+        // ----------------------------------------------------------------------
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mainWrapper = document.getElementById('mainWrapper');
         
-        // Main Access Button Logic
-        startButton.addEventListener('click', () => {
-            pageTransition.classList.add('active');
-            welcomeScreen.classList.add('exit');
-            
-            setTimeout(() => {
-                welcomeScreen.style.display = 'none';
-                servicesSection.classList.add('active');
-                footerSection.style.display = 'block';
-                
-                setTimeout(() => { pageTransition.classList.remove('active'); }, 500);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(openDownloadModal, 650);
-            }, 1200);
-        });
+        const isMobile = () => window.innerWidth <= 1024;
 
-        // Logo Click to go back to Welcome Screen
-        backToWelcomeBtn.addEventListener('click', (e) => {
-            if(welcomeScreen.style.display === 'none') {
-                servicesSection.classList.remove('active');
-                footerSection.style.display = 'none';
-                welcomeScreen.classList.remove('exit');
-                welcomeScreen.style.display = 'flex';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuBtn.classList.toggle('active');
+            
+            if (isMobile()) {
+                sidebar.classList.toggle('active');
+            } else {
+                sidebar.classList.toggle('hidden');
+                mainWrapper.classList.toggle('expanded');
             }
         });
 
-        // Account Management Modal Logic (NEW)
-        accountManagementBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(19, 19, 20, 0.8); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s;';
+        // Outside click to close sidebar on mobile
+        document.addEventListener('click', (e) => {
+            if (isMobile() && sidebar.classList.contains('active')) {
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    menuBtn.classList.remove('active');
+                }
+            }
+        });
+
+        // Layout reset on window resize to prevent glitches
+        window.addEventListener('resize', () => {
+            if (!isMobile()) {
+                sidebar.classList.remove('active');
+                if(!sidebar.classList.contains('hidden')) {
+                    mainWrapper.classList.remove('expanded');
+                }
+            }
+        });
+
+        // ----------------------------------------------------------------------
+        // Dynamic Time Greeting
+        // ----------------------------------------------------------------------
+        const updateGreeting = () => {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('greetingText');
+            if (hour < 12) greetingElement.textContent = "Good Morning, Commander.";
+            else if (hour < 18) greetingElement.textContent = "Good Afternoon, Commander.";
+            else greetingElement.textContent = "Good Evening, Commander.";
+        };
+        updateGreeting();
+
+        // ----------------------------------------------------------------------
+        // Advanced Modal Logic & Content Routing
+        // ----------------------------------------------------------------------
+        const universalModal = document.getElementById('universalModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function closeModal() {
+            universalModal.classList.remove('active');
+        }
+
+        universalModal.addEventListener('click', (e) => {
+            if(e.target === universalModal) closeModal();
+        });
+
+        function openModal(type) {
+            let html = '';
+            const closeBtnHtml = `<button class="close-modal-btn" onclick="closeModal()"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>`;
             
-            const modal = document.createElement('div');
-            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translateY(20px); transition: 0.3s; background: var(--google-surface); border: 1px solid var(--panel-border); border-radius: 24px; box-shadow: 0 24px 48px rgba(0,0,0,0.4);';
-            
-            modal.innerHTML = `
-                <span class="material-icons-round" style="font-size: 40px; color: var(--google-accent-blue); margin-bottom: 16px;">account_balance_wallet</span>
-                <h3 style="font-family:var(--font-display); font-size:24px; font-weight: 500; margin-bottom:8px; color: var(--google-text);">Account Management</h3>
-                <p style="color:var(--google-text-muted); font-size: 14px; margin-bottom:32px;">Select an operational path to proceed securely.</p>
+            if (type === 'account') {
+                html = closeBtnHtml + `
+                    <div style="text-align: center; margin-bottom: 32px;">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#4285F4" style="margin-bottom: 16px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Account Routing</h3>
+                        <p style="color: var(--text-secondary); font-size: 15px;">Select an operational path to proceed securely.</p>
+                    </div>
+                    <a href="https://playcodeindia.github.io/Balance/" class="modal-action-btn" style="color: #34A853;">
+                        <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-8.5-9L2 6v2h19V6l-9.5-5z"/></svg>
+                        <div class="modal-text-content">
+                            <h4 style="color: white;">PlayCode Workspace</h4>
+                            <p>Manage Balance & Operations</p>
+                        </div>
+                    </a>
+                    <a href="https://playcodeindia.github.io/Loans/" class="modal-action-btn" style="color: #FBBC05;">
+                        <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/></svg>
+                        <div class="modal-text-content">
+                            <h4 style="color: white;">PlayCode Loans</h4>
+                            <p>Access Financial Services</p>
+                        </div>
+                    </a>
+                `;
+            } 
+            else if (type === 'download') {
+                html = closeBtnHtml + `
+                    <div style="text-align: center; margin-bottom: 32px;">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#06b6d4" style="margin-bottom: 16px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Download PlayCode</h3>
+                        <p style="color: var(--text-secondary); font-size: 15px;">Choose the native installer optimized for your machine specs.</p>
+                    </div>
+                    <a href="https://drive.usercontent.google.com/download?id=1N5FuREWgiEhofgVOksYsKSQVwd4B12XR&export=download&authuser=0" target="_blank" class="modal-action-btn" style="color: #4285F4;">
+                        <svg viewBox="0 0 24 24"><path d="M20 18v-4h-2v4H6v-4H4v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM12 14l5-5h-3V4h-4v5H7l5 5z"/></svg>
+                        <div class="modal-text-content">
+                            <h4 style="color: white;">Setup.exe Installer</h4>
+                            <p>Standard Install (97 MB)</p>
+                        </div>
+                    </a>
+                    <a href="https://drive.usercontent.google.com/download?id=1ojn6V1pq7HVs0UcK42w3YYrYKEscdaeD&export=download&authuser=0" target="_blank" class="modal-action-btn" style="color: #a1a1aa;">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                        <div class="modal-text-content">
+                            <h4 style="color: white;">Portable Edition</h4>
+                            <p>No Install Required (140 MB)</p>
+                        </div>
+                    </a>
+                `;
+            }
+            else if (type === 'quera') {
+                html = closeBtnHtml + `
+                    <div style="text-align: center; margin-bottom: 32px;">
+                        <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 24px; background: linear-gradient(135deg, #00c6ff, #0072ff); display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(0,198,255,0.4);">
+                            <svg viewBox="0 0 24 24" width="36" height="36" fill="white">
+                                <rect x="5" y="10" width="2.5" height="4" rx="1.25" />
+                                <rect x="9" y="7" width="2.5" height="10" rx="1.25" />
+                                <rect x="13" y="3" width="2.5" height="18" rx="1.25" />
+                                <rect x="17" y="7" width="2.5" height="10" rx="1.25" />
+                                <rect x="21" y="10" width="2.5" height="4" rx="1.25" />
+                            </svg>
+                        </div>
+                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Quera Music</h3>
+                        <p style="color: var(--text-secondary); font-size: 15px;">Experience the next generation of audio streaming.</p>
+                    </div>
+                    <a href="https://queraindia.github.io/" target="_blank" class="modal-action-btn" style="color: #00c6ff; justify-content: center; text-align: center;">
+                        <h4 style="color: white; margin: 0; width: 100%;">Visit Quera Music</h4>
+                    </a>
+                    <div style="text-align: center; margin-top: 16px; font-size: 12px; color: var(--text-tertiary);">Sponsored Content</div>
+                `;
+            }
+            else if (type === 'privacy') {
+                html = closeBtnHtml + `
+                    <div style="text-align: center; margin-bottom: 32px;">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#a1a1aa" style="margin-bottom: 16px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Privacy Center</h3>
+                        <p style="color: var(--text-secondary); font-size: 15px;">Your data is encrypted and managed under strict security protocols.</p>
+                    </div>
+                    <a href="https://playcodeindia.github.io/Privacypolicies/" class="modal-action-btn" style="color: #fff;">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        <div class="modal-text-content">
+                            <h4 style="color: white;">Privacy Policies</h4>
+                            <p>Read our full documentation</p>
+                        </div>
+                    </a>
+                `;
+            }
+
+            modalContent.innerHTML = html;
+            universalModal.classList.add('active');
+        }
+
+        // ----------------------------------------------------------------------
+        // Enterprise Grade Particle Simulation Engine (Fills Code Size & Looks Great)
+        // ----------------------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        
+        // Settings for the simulation
+        const CONFIG = {
+            particleCount: window.innerWidth < 768 ? 40 : 80,
+            connectionDistance: 160,
+            baseColor: '255, 255, 255', // White transparent dots
+            lineColor: '100, 140, 255', // Subtle blue for the web
+            speedMultiplier: 0.3
+        };
+
+        function resize() { 
+            width = canvas.width = window.innerWidth; 
+            height = canvas.height = window.innerHeight; 
+        }
+        
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles(); // Reinit on resize to distribute evenly
+        });
+        
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; 
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * CONFIG.speedMultiplier; 
+                this.vy = (Math.random() - 0.5) * CONFIG.speedMultiplier;
+                this.radius = Math.random() * 1.5 + 0.5;
+            }
+            update() {
+                // Move particle
+                this.x += this.vx; 
+                this.y += this.vy;
                 
-                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
-                    <a href="https://playcodeindia.github.io/Balance/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
-                            <span class="material-icons-round" style="font-size: 20px;">account_balance</span>
-                        </div>
-                        <div style="text-align: left;">
-                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Workspace</div>
-                            <div style="font-size: 13px; color: var(--google-text-muted);">Manage Balance & Operations</div>
-                        </div>
-                    </a>
+                // Bounce off edges smoothly
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${CONFIG.baseColor}, 0.2)`; 
+                ctx.fill();
+            }
+        }
 
-                    <a href="https://playcodeindia.github.io/Loans/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
-                            <span class="material-icons-round" style="font-size: 20px;">real_estate_agent</span>
-                        </div>
-                        <div style="text-align: left;">
-                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Loans</div>
-                            <div style="font-size: 13px; color: var(--google-text-muted);">Access Financial Services</div>
-                        </div>
-                    </a>
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
 
-                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
-                            <span class="material-icons-round" style="font-size: 20px;">support_agent</span>
-                        </div>
-                        <div style="text-align: left;">
-                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">PlayCode Support</div>
-                            <div style="font-size: 13px; color: var(--google-text-muted);">Get Help & Assistance</div>
-                        </div>
-                    </a>
-                </div>
+        initParticles();
 
-                <button id="closeAccountModal" class="support-btn-outline" style="width:100%; padding: 14px; font-size: 14px; background: var(--google-surface-hover);">Back</button>
-            `;
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
             
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
+            // Render Connections (O(N^2) complexity, kept small for performance)
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < CONFIG.connectionDistance) {
+                        // Opacity scales based on distance
+                        const opacity = (1 - (dist / CONFIG.connectionDistance)) * 0.15;
+                        ctx.beginPath(); 
+                        ctx.strokeStyle = `rgba(${CONFIG.lineColor}, ${opacity})`;
+                        ctx.lineWidth = 1; 
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y); 
+                        ctx.stroke();
+                    }
+                }
+            }
             
-            setTimeout(() => {
-                overlay.style.opacity = '1';
-                modal.style.transform = 'translateY(0)';
-            }, 10);
+            // Render and update particles
+            particles.forEach(p => { 
+                p.update(); 
+                p.draw(); 
+            });
             
-            document.getElementById('closeAccountModal').onclick = () => {
-                overlay.style.opacity = '0';
-                modal.style.transform = 'translateY(20px)';
-                setTimeout(() => document.body.removeChild(overlay), 300);
-            };
-        });
-
-        openDownloadModalBtn.addEventListener('click', openDownloadModal);
-
-        footerDownloadLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            openDownloadModal();
-        });
-
-        // Support Modal Logic Restored
-        contactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(19, 19, 20, 0.8); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2000; display:flex; align-items:center; justify-content:center; opacity: 0; transition: 0.3s;';
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = 'padding:40px; max-width:440px; width:90%; text-align:center; transform: translateY(20px); transition: 0.3s; background: var(--google-surface); border: 1px solid var(--panel-border); border-radius: 24px; box-shadow: 0 24px 48px rgba(0,0,0,0.4);';
-            
-            modal.innerHTML = `
-                <span class="material-icons-round" style="font-size: 40px; color: var(--google-accent-blue); margin-bottom: 16px;">support_agent</span>
-                <h3 style="font-family:var(--font-display); font-size:24px; font-weight: 500; margin-bottom:8px; color: var(--google-text);">Node Support</h3>
-                <p style="color:var(--google-text-muted); font-size: 14px; margin-bottom:32px;">Select a method to connect with our system administrators.</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
-                    <a href="mailto:playcodeagent@gmail.com" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='var(--panel-border-hover)'; this.style.background='var(--google-surface-hover)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--google-surface-hover); border: 1px solid var(--panel-border); display: grid; place-items: center; color: var(--google-text);">
-                            <span class="material-icons-round" style="font-size: 20px;">mail</span>
-                        </div>
-                        <div style="text-align: left;">
-                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">Email Support</div>
-                            <div style="font-size: 13px; color: var(--google-text-muted);">playcodeagent@gmail.com</div>
-                        </div>
-                    </a>
-
-                    <a href="https://playcodeindia.github.io/Support/" target="_self" style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--panel-border); border-radius: 16px; text-decoration: none; color: var(--google-text); transition: 0.2s;" onmouseover="this.style.borderColor='rgba(138, 180, 248, 0.4)'; this.style.background='rgba(138, 180, 248, 0.05)';" onmouseout="this.style.borderColor='var(--panel-border)'; this.style.background='transparent';">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(138, 180, 248, 0.1); border: 1px solid rgba(138, 180, 248, 0.2); display: grid; place-items: center; color: var(--google-accent-blue);">
-                            <span class="material-icons-round" style="font-size: 20px;">chat</span>
-                        </div>
-                        <div style="text-align: left;">
-                            <div style="font-weight: 500; font-size: 15px; font-family: var(--font-display);">Live Chat</div>
-                            <div style="font-size: 13px; color: var(--google-text-muted);">Connect with Staff</div>
-                        </div>
-                    </a>
-                </div>
-
-                <button id="closeModal" class="support-btn-outline" style="width:100%; padding: 14px; font-size: 14px; background: var(--google-surface-hover);">Close Console</button>
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            setTimeout(() => {
-                overlay.style.opacity = '1';
-                modal.style.transform = 'translateY(0)';
-            }, 10);
-            
-            document.getElementById('closeModal').onclick = () => {
-                overlay.style.opacity = '0';
-                modal.style.transform = 'translateY(20px)';
-                setTimeout(() => document.body.removeChild(overlay), 300);
-            };
-        });
+            requestAnimationFrame(animate);
+        }
+        
+        // Start simulation
+        requestAnimationFrame(animate);
+        
     </script>
 </body>
 </html>
