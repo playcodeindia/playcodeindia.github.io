@@ -1,886 +1,1833 @@
-
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Google Playcode Portal</title>
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ==========================================================================
-           GOOGLE PLAYCODE PORTAL - 2026 ENTERPRISE UI
-           ========================================================================== */
-        
-        :root {
-            /* Core Theme Colors - Deep Dark Google Workspace Variant */
-            --bg-base: #050507;
-            --bg-surface: rgba(24, 24, 27, 0.4);
-            --bg-surface-hover: rgba(39, 39, 42, 0.65);
-            --bg-modal: rgba(15, 15, 18, 0.95);
-            
-            /* Text & Typography */
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --text-tertiary: #71717a;
-            
-            /* Accents */
-            --accent-blue: #4285F4;
-            --accent-red: #EA4335;
-            --accent-yellow: #FBBC05;
-            --accent-green: #34A853;
-            --accent-purple: #a855f7;
-            --accent-cyan: #06b6d4;
-            
-            /* Glassmorphism & Borders */
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(255, 255, 255, 0.15);
-            --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-            
-            /* Squircles & Radii - 2026 Standard */
-            --radius-sm: 12px;
-            --radius-md: 20px;
-            --radius-lg: 32px;
-            --radius-xl: 40px; /* Extreme squircle */
-            --radius-full: 9999px;
-            
-            /* Animation Curves */
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            
-            /* Typography Scale */
-            --font-display: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Outfit', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#030406">
+<meta name="description" content="PlaycodeX — Secure Workspace Portal by ShadowFast.">
+<title>PlaycodeX.in — Secure Workspace Portal</title>
 
-        /* --------------------------------------------------------------------------
-           RESET & BASE STYLES
-           -------------------------------------------------------------------------- */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        html { scroll-behavior: smooth; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+<style>
+/* ============================================================
+   0. TOKENS & RESET
+   ============================================================ */
+:root{
+  --bg:#030406;
+  --bg-2:#070910;
+  --surface:rgba(20,22,28,.85);
+  --surface-hover:rgba(32,36,46,.95);
+  --surface-solid:#0b0d14;
 
-        /* Background Canvas Element - Clean dark background without intrusive purple glows */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            opacity: 0.8;
-            pointer-events: none;
-            background: radial-gradient(circle at 50% 0%, rgba(66, 133, 244, 0.05) 0%, transparent 70%);
-        }
+  --text:#f2f4f9;
+  --text-dim:#a4a9b8;
+  --text-mute:#666b78;
 
-        .app-wrapper {
-            display: flex;
-            flex-grow: 1;
-            position: relative;
-            width: 100%;
-        }
+  --outline:rgba(255,255,255,.07);
+  --outline-strong:rgba(255,255,255,.14);
 
-        /* --------------------------------------------------------------------------
-           SIDEBAR
-           -------------------------------------------------------------------------- */
-        .sidebar {
-            width: 280px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: rgba(5, 5, 7, 0.75);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-right: 1px solid var(--border-glass);
-            display: flex;
-            flex-direction: column;
-            padding: 32px 24px;
-            z-index: 100;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+  --blue:#8ab4f8;
+  --indigo:#6c8cff;
+  --purple:#c58af9;
+  --pink:#f28b82;
+  --cyan:#78d9ec;
+  --green:#81c995;
+  --amber:#fdd663;
 
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
+  --r-full:999px;
+  --ease:cubic-bezier(.2,0,0,1);
+  --spring:cubic-bezier(.175,.885,.32,1.15);
+  --out:cubic-bezier(.16,1,.3,1);
+}
 
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 48px;
-            text-decoration: none;
-        }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
-        .sidebar-brand img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
+html{
+  scroll-behavior:smooth;
+  background:var(--bg);
+  -webkit-text-size-adjust:100%;
+}
 
-        .sidebar-brand span {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.5px;
-        }
+/* ============================================================
+   1. COLORFUL MESH BACKGROUND (Static & Fast)
+   ============================================================ */
+body{
+  background-color: var(--bg);
+  color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-feature-settings:"cv11","ss01";
+}
 
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+/* Colorful mesh background */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(66, 133, 244, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(219, 68, 55, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(244, 160, 0, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 5% 80%, rgba(15, 157, 88, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(66, 133, 244, 0.14) 0%, transparent 45%);
+  background-attachment: fixed;
+}
 
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 20px;
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: var(--transition-smooth);
-        }
+body.locked{overflow:hidden;}
 
-        .nav-item:hover {
-            color: var(--text-primary);
-            background: var(--bg-surface);
-            transform: translateX(4px);
-        }
+::selection{background:rgba(197,138,249,.35);color:#fff;}
 
-        .nav-item.active {
-            background: var(--text-primary);
-            color: var(--bg-base);
-            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
-        }
+/* Scrollbar */
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,rgba(138,180,248,.35),rgba(197,138,249,.35));
+  border-radius:99px;border:3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(138,180,248,.6),rgba(197,138,249,.6));}
 
-        .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+/* ============================================================
+   2. PAGE WRAPPER
+   ============================================================ */
+.page{
+  position:relative;z-index:5;
+  transition:opacity .6s var(--ease), transform .85s var(--out), filter .6s var(--ease);
+  transform-origin:center top;
+  will-change:opacity,transform,filter;
+}
+body.panel-active .page{
+  opacity:0;
+  transform:scale(.94) translateY(-46px);
+  filter:blur(12px);
+  pointer-events:none;
+}
 
-        /* --------------------------------------------------------------------------
-           MAIN CONTENT AREA & TOPBAR
-           -------------------------------------------------------------------------- */
-        .main-wrapper {
-            flex-grow: 1;
-            margin-left: 280px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+/* ============================================================
+   3. HEADER
+   ============================================================ */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  padding:20px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:linear-gradient(180deg,rgba(3,4,6,.95) 0%,rgba(3,4,6,.5) 55%,transparent 100%);
+  animation:fadeDown 1s var(--out) both;
+  transition:padding .4s var(--ease), background .4s var(--ease);
+}
+.header.scrolled{
+  padding:12px 40px;
+  background:rgba(4,5,9,.95);
+  border-bottom:1px solid var(--outline);
+}
 
-        .main-wrapper.expanded { margin-left: 0; }
+.header-left{display:flex;align-items:center;gap:14px;min-width:0;}
 
-        .top-bar {
-            position: sticky;
-            top: 0;
-            z-index: 90;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(180deg, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+/* --- Square Logo (image340.png) - Cleaned & Seamless --- */
+.brand{
+  display:flex;align-items:center;gap:11px;
+  text-decoration:none;color:inherit;
+  transition: transform .4s var(--spring);
+}
+.brand:hover { transform: scale(1.04); }
 
-        .menu-toggle {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-glass);
-            border-radius: 50%;
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: var(--transition-bounce);
-        }
+/* Removed border, background, and box-shadow to eliminate the visible box */
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex: none;
+}
 
-        .menu-toggle:hover {
-            background: var(--text-primary);
-            color: var(--bg-base);
-            transform: scale(1.05);
-        }
+.brand-logo-large {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex: none;
+}
 
-        .menu-toggle svg { width: 24px; height: 24px; fill: currentColor; transition: transform 0.4s ease; }
-        .menu-toggle.active svg { transform: rotate(180deg); }
+.brand-text{
+  display:flex;flex-direction:column;line-height:1;
+  min-width:0;
+}
+.brand-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:18px;font-weight:600;letter-spacing:-.5px;
+  color:var(--text);
+}
+.brand-name b{
+  font-weight:700;
+  background:linear-gradient(100deg,#8ab4f8,#c58af9 55%,#f28b82);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 
-        .content-container {
-            padding: 20px 60px 80px;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
+.header-divider{
+  width:1px;height:26px;flex:none;
+  background:linear-gradient(180deg,transparent,var(--outline-strong),transparent);
+}
 
-        .greeting-section {
-            margin-bottom: 64px;
-            animation: fadeUp 0.8s ease forwards;
-        }
+/* --- ShadowFast badge --- */
+.sf-badge{
+  display:flex;align-items:center;gap:9px;
+  padding:6px 13px 6px 8px;
+  border-radius:var(--r-full);
+  background:linear-gradient(120deg,rgba(138,180,248,.09),rgba(197,138,249,.09));
+  border:1px solid var(--outline);
+  text-decoration:none;
+  transition:all .35s var(--ease);
+  overflow:hidden;
+}
+.sf-badge:hover{
+  border-color:rgba(197,138,249,.4);
+  background:linear-gradient(120deg,rgba(138,180,248,.16),rgba(197,138,249,.16));
+}
+.sf-icon{
+  width:22px;height:22px;flex:none;
+  border-radius:7px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#6c8cff,#c58af9);
+}
+.sf-icon svg{width:13px;height:13px;fill:#fff;}
+.sf-text{display:flex;flex-direction:column;line-height:1.05;}
+.sf-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.2px;color:var(--text);
+}
+.sf-sub{
+  font-size:8.5px;font-weight:500;letter-spacing:1.1px;
+  text-transform:uppercase;color:var(--text-mute);
+}
 
-        .greeting-title {
-            font-family: var(--font-display);
-            font-size: clamp(36px, 4vw, 56px);
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
+.header-right{display:flex;align-items:center;gap:6px;flex:none;}
+.hbtn{
+  height:40px;padding:0 18px;
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:var(--r-full);
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--text-dim);
+  font-family:inherit;font-size:14px;font-weight:500;
+  cursor:pointer;
+  transition:all .3s var(--ease);
+  white-space:nowrap;
+}
+.hbtn:hover{background:var(--surface);color:var(--text);}
+.hbtn.ghost{border-color:var(--outline);}
+.hbtn.ghost:hover{border-color:var(--outline-strong);background:var(--surface-hover);}
+.hbtn.primary{
+  background:linear-gradient(120deg,rgba(138,180,248,.16),rgba(197,138,249,.16));
+  border-color:rgba(138,180,248,.3);
+  color:var(--text);
+}
+.hbtn.primary:hover{
+  border-color:rgba(197,138,249,.55);
+  transform:translateY(-1px);
+}
 
-        .greeting-subtitle {
-            font-size: 18px;
-            color: var(--accent-blue);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
+/* ============================================================
+   4. HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:140px 24px 90px;
+}
 
-        /* --------------------------------------------------------------------------
-           ECOSYSTEM LAUNCHER (App Icon Grid)
-           -------------------------------------------------------------------------- */
-        .launcher-section {
-            margin-bottom: 80px;
-            animation: fadeUp 1s ease forwards;
-            animation-delay: 0.1s;
-        }
+.pill{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 18px 8px 11px;
+  border-radius:var(--r-full);
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--outline);
+  font-size:11.5px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text-dim);
+  animation:fadeUp .9s var(--out) .1s both;
+}
+.pill-dot{
+  width:15px;height:15px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  position:relative;
+}
+.pill-dot::after{
+  content:'';width:5px;height:5px;border-radius:50%;background:#fff;
+}
 
-        .section-header {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+/* --- Brand line --- */
+.brandline{
+  margin-top:34px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp .9s var(--out) .2s both;
+}
 
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 48px 24px;
-            justify-items: center;
-        }
-        
-        .app-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            gap: 16px;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            width: 100%;
-        }
+.pc{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(22px,4vw,32px);
+  font-weight:500;letter-spacing:-1px;
+}
+.pc b{
+  font-weight:700;
+  background:linear-gradient(100deg,var(--blue),var(--purple) 55%,var(--pink));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 
-        /* Container to fix badge positioning issue */
-        .app-icon-container {
-            position: relative;
-            display: inline-block;
-        }
+/* --- Typed headline --- */
+.headline{
+  margin-top:26px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(38px,8.6vw,92px);
+  font-weight:700;
+  letter-spacing:-3px;
+  line-height:1.06;
+  min-height:1.1em;
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;
+}
+.typed{
+  display:inline-flex;align-items:baseline;
+  white-space:nowrap;
+}
 
-        .app-icon-wrapper {
-            width: 96px;
-            height: 96px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-xl);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-            transition: var(--transition-bounce);
-            position: relative;
-            overflow: hidden;
-        }
+.ch{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.32em) rotateX(-55deg) scale(.9);
+  filter:blur(7px);
+  transition:
+    opacity .5s var(--out),
+    transform .62s var(--spring),
+    filter .5s var(--out);
+  will-change:opacity,transform,filter;
+}
+.ch.show{
+  opacity:1;
+  transform:translateY(0) rotateX(0) scale(1);
+  filter:blur(0);
+}
 
-        .app-item:hover .app-icon-wrapper {
-            transform: translateY(-8px) scale(1.05);
-            border-color: rgba(255,255,255,0.4);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
+/* plain letters */
+.ch.w{
+  color:var(--text);
+  text-shadow:0 0 42px rgba(180,205,255,.18);
+}
 
-        .app-icon-wrapper svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--text-primary);
-            transition: var(--transition-smooth);
-            z-index: 2;
-        }
+/* ".in" suffix */
+.ch.in{
+  background:linear-gradient(100deg,#78d9ec,#8ab4f8 60%,#c58af9);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 18px rgba(120,217,236,.4));
+}
+.ch.in.show{filter:drop-shadow(0 0 22px rgba(120,217,236,.45));}
 
-        /* Badges */
-        .badge-new, .badge-ad {
-            position: absolute;
-            top: -6px;
-            right: -8px;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: var(--radius-full);
-            border: 2px solid var(--bg-base);
-            z-index: 10;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            font-family: var(--font-display);
-        }
-        
-        .badge-new { background: var(--accent-purple); color: white; }
-        .badge-ad { background: var(--accent-yellow); color: #000; }
+/* THE SHINING X */
+.ch.x{
+  position:relative;
+  background:linear-gradient(
+    100deg,
+    #6c8cff 0%,
+    #8ab4f8 18%,
+    #c58af9 34%,
+    #f28b82 46%,
+    #fdd663 56%,
+    #c58af9 70%,
+    #8ab4f8 84%,
+    #6c8cff 100%
+  );
+  background-size:280% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shineSweep 3.6s linear infinite;
+  filter:
+    drop-shadow(0 0 14px rgba(197,138,249,.85))
+    drop-shadow(0 0 34px rgba(138,180,248,.55));
+}
+.ch.x.show{
+  filter:
+    drop-shadow(0 0 16px rgba(197,138,249,.9))
+    drop-shadow(0 0 40px rgba(138,180,248,.6))
+    drop-shadow(0 0 70px rgba(242,139,130,.35));
+}
 
-        .app-label {
-            font-family: var(--font-display);
-            color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-            opacity: 0.9;
-            transition: var(--transition-smooth);
-            line-height: 1.3;
-        }
+@keyframes shineSweep{
+  0%{background-position:0% 50%;}
+  100%{background-position:280% 50%;}
+}
 
-        .app-item:hover .app-label {
-            opacity: 1;
-            transform: scale(1.05);
-        }
+/* caret */
+.caret{
+  display:inline-block;
+  width:3px;
+  height:.82em;
+  margin-left:8px;
+  border-radius:3px;
+  background:linear-gradient(180deg,#8ab4f8,#c58af9);
+  animation:blink 1.05s steps(1) infinite;
+  vertical-align:-.06em;
+}
+@keyframes blink{
+  0%,49%{opacity:1;}
+  50%,100%{opacity:0;}
+}
 
-        /* Specific App Colors & Gradients */
-        .app-item.matrix .app-icon-wrapper { background: linear-gradient(135deg, #27272a, #09090b); border-color: rgba(161, 161, 170, 0.3); }
-        .app-item.invest .app-icon-wrapper { background: linear-gradient(135deg, #1e3a8a, #020617); border-color: rgba(59, 130, 246, 0.3); }
-        .app-item.code .app-icon-wrapper { background: linear-gradient(135deg, #581c87, #1e1b4b); border-color: rgba(168, 85, 247, 0.3); }
-        
-        /* Gemini App - Sparkle */
-        .app-item.gemini .app-icon-wrapper { background: linear-gradient(135deg, #0f172a, #020617); border-color: rgba(56, 189, 248, 0.4); }
-        .app-item.gemini .app-icon-wrapper svg { fill: url(#gemini-grad); }
+/* --- Subtitle --- */
+.subtitle{
+  margin-top:28px;
+  max-width:620px;
+  font-size:clamp(15px,2vw,18px);
+  line-height:1.65;
+  color:var(--text-dim);
+  font-weight:300;
+  animation:fadeUp .9s var(--out) .75s both;
+}
+.subtitle strong{
+  color:var(--text);
+  font-weight:500;
+}
 
-        .app-item.video .app-icon-wrapper { background: linear-gradient(135deg, #991b1b, #450a0a); border-color: rgba(239, 68, 68, 0.3); }
-        .app-item.download .app-icon-wrapper { background: linear-gradient(135deg, #0f766e, #042f2e); border-color: rgba(20, 184, 166, 0.3); }
-        
-        /* Quera Music CSS Recreation */
-        .app-item.quera .app-icon-wrapper { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); border: none; }
-        
-        .app-item.privacy .app-icon-wrapper { background: linear-gradient(135deg, #374151, #111827); border-color: rgba(156, 163, 175, 0.3); }
+/* --- Console CTA --- */
+.console-wrap{
+  margin-top:44px;
+  animation:fadeUp .9s var(--out) .85s both;
+}
 
-        /* --------------------------------------------------------------------------
-           MODALS
-           -------------------------------------------------------------------------- */
-        .modal-overlay {
-            position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.7); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
-            z-index: 2000; display: flex; align-items: center; justify-content: center; 
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
-        
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        
-        .modal-content {
-            background: var(--bg-modal); 
-            border: 1px solid var(--border-highlight); 
-            border-radius: var(--radius-lg); 
-            padding: 40px; width: 90%; max-width: 500px;
-            transform: translateY(30px) scale(0.95); 
-            transition: var(--transition-bounce); 
-            box-shadow: 0 32px 64px rgba(0,0,0,0.8); 
-            position: relative;
-        }
-        
-        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
-        
-        .close-modal-btn {
-            position: absolute; top: 24px; right: 24px; 
-            background: var(--bg-surface-hover); border: none; 
-            width: 36px; height: 36px; border-radius: 50%; 
-            color: var(--text-secondary); cursor: pointer; 
-            display: grid; place-items: center; transition: 0.2s;
-        }
-        
-        .close-modal-btn:hover { background: white; color: black; }
+.console-btn{
+  position:relative;
+  display:inline-flex;align-items:center;gap:14px;
+  padding:12px 14px 12px 20px;
+  border-radius:var(--r-full);
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--outline-strong);
+  color:var(--text);
+  font-family:inherit;
+  font-size:15px;font-weight:600;
+  cursor:pointer;
+  box-shadow:
+    0 20px 44px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.1);
+  transition:
+    transform .38s var(--spring),
+    box-shadow .35s var(--ease),
+    background .35s ease;
+  overflow:hidden;
+  isolation:isolate;
+}
+.console-btn::before{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(120deg,rgba(138,180,248,.9),rgba(197,138,249,.9),rgba(120,217,236,.9));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  opacity:.55;
+  pointer-events:none;
+  transition:opacity .35s ease;
+}
+.console-btn:hover{
+  transform:translateY(-3px) scale(1.025);
+  background:rgba(255,255,255,.09);
+  box-shadow:
+    0 26px 54px rgba(0,0,0,.65),
+    0 0 66px rgba(138,180,248,.28),
+    inset 0 1px 0 rgba(255,255,255,.16);
+}
+.console-btn:hover::before{opacity:1;}
+.console-btn:active{transform:translateY(1px) scale(.985);}
 
-        .modal-action-btn {
-            display: flex; align-items: center; gap: 16px; padding: 16px 20px; 
-            background: var(--bg-surface); border: 1px solid var(--border-glass);
-            border-radius: var(--radius-md); color: white; text-decoration: none; 
-            transition: 0.3s; margin-bottom: 12px; text-align: left; 
-            cursor: pointer; width: 100%; font-family: var(--font-body);
-        }
-        
-        .modal-action-btn:hover { 
-            background: rgba(255, 255, 255, 0.05); 
-            border-color: rgba(255, 255, 255, 0.3); 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
-        }
-        
-        .modal-action-btn svg { fill: currentColor; width: 28px; height: 28px; }
-        .modal-text-content h4 { font-family: var(--font-display); font-size: 17px; font-weight: 600; margin-bottom: 4px; }
-        .modal-text-content p { font-size: 13px; color: var(--text-secondary); }
+.cb-icon{
+  width:20px;height:20px;
+  color:var(--text-dim);
+  transition:transform .5s var(--spring),color .3s;
+}
+.cb-icon svg{width:100%;height:100%;fill:currentColor;}
+.console-btn:hover .cb-icon{color:var(--blue);transform:rotate(90deg) scale(1.1);}
 
-        /* --------------------------------------------------------------------------
-           FOOTER
-           -------------------------------------------------------------------------- */
-        .site-footer {
-            text-align: center; padding: 40px 20px; font-family: var(--font-display); 
-            color: var(--text-tertiary); font-size: 14px; margin-top: auto;
-        }
-        
-        .site-footer span { color: var(--text-primary); font-weight: 700; font-size: 16px; display: block; margin-top: 6px; }
+.cb-label{letter-spacing:-.2px;}
 
-        @keyframes fadeUp { 
-            from { opacity: 0; transform: translateY(30px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+.cb-badge{
+  padding:4px 10px;
+  border-radius:var(--r-full);
+  background:rgba(197,138,249,.16);
+  border:1px solid rgba(197,138,249,.34);
+  color:var(--purple);
+  font-size:10.5px;font-weight:700;
+  letter-spacing:.8px;text-transform:uppercase;
+}
 
-        /* --------------------------------------------------------------------------
-           RESPONSIVE DESIGN
-           -------------------------------------------------------------------------- */
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.active { transform: translateX(0); box-shadow: 0 0 0 100vw rgba(0,0,0,0.7); }
-            .main-wrapper { margin-left: 0; }
-            .content-container { padding: 20px 24px 60px; }
-        }
-        
-        @media (max-width: 640px) {
-            .app-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
-            .app-icon-wrapper { width: 84px; height: 84px; border-radius: 32px; }
-            .app-icon-wrapper svg { width: 34px; height: 34px; }
-            .top-bar { padding: 16px 20px; }
-            .greeting-title { font-size: 32px; }
-        }
-    </style>
+.cb-mic{
+  width:36px;height:36px;flex:none;
+  border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.08);
+  color:var(--text-dim);
+  transition:all .35s var(--ease);
+}
+.console-btn:hover .cb-mic{
+  background:linear-gradient(135deg,rgba(138,180,248,.28),rgba(197,138,249,.28));
+  color:#fff;
+}
+.cb-mic svg{width:17px;height:17px;fill:currentColor;}
+
+/* --- Hint --- */
+.hint{
+  margin-top:22px;
+  font-size:13px;
+  color:var(--text-mute);
+  animation:fadeUp .9s var(--out) .95s both;
+}
+.hint kbd{
+  padding:3px 8px;
+  border-radius:6px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  font-size:11px;
+  color:var(--text-dim);
+  font-family:'JetBrains Mono',monospace;
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset;
+}
+
+/* --- Tag strip --- */
+.strip{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  padding:0 24px 56px;
+  animation:fadeUp .9s var(--out) 1.05s both;
+}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;
+  border-radius:var(--r-full);
+  background:var(--surface);
+  border:1px solid var(--outline);
+  font-size:12.5px;
+  color:var(--text-dim);
+  transition:all .3s var(--ease);
+}
+.tag:hover{
+  border-color:var(--outline-strong);
+  color:var(--text);
+  transform:translateY(-2px);
+  background:var(--surface-hover);
+}
+.tag-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+}
+
+/* --- Footer --- */
+.footer{
+  padding:0 40px 34px;
+  display:flex;flex-wrap:wrap;gap:16px;
+  align-items:center;justify-content:space-between;
+  font-size:13px;
+  color:var(--text-mute);
+  animation:fadeUp .9s var(--out) 1.15s both;
+}
+.footer strong{color:var(--text-dim);font-weight:500;}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.footer-sf{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 12px;
+  border-radius:var(--r-full);
+  background:rgba(138,180,248,.07);
+  border:1px solid var(--outline);
+  font-size:11.5px;
+}
+.footer-sf b{
+  font-family:'Space Grotesk',sans-serif;
+  color:var(--text);font-weight:600;
+}
+.footer-sf span{color:var(--text-mute);font-size:9.5px;letter-spacing:.9px;text-transform:uppercase;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(32px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-22px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ============================================================
+   5. CONSOLE PAGE
+   ============================================================ */
+.console-page{
+  position:fixed;inset:0;z-index:150;
+  opacity:0;pointer-events:none;
+  transform:scale(1.025);
+  transition:opacity .5s var(--ease), transform .65s var(--out);
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  background:var(--bg);
+  overscroll-behavior:contain;
+}
+body.panel-active .console-page{
+  opacity:1;pointer-events:auto;transform:scale(1);
+}
+
+/* --- Top bar --- */
+.console-top{
+  position:sticky;top:0;left:0;right:0;z-index:160;
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(3,4,6,.95);
+  border-bottom:1px solid var(--outline);
+  opacity:0;transform:translateY(-18px);
+  transition:all .55s var(--ease) .18s;
+}
+body.panel-active .console-top{opacity:1;transform:translateY(0);}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  height:40px;padding:0 16px 0 12px;
+  border-radius:var(--r-full);
+  background:var(--surface);
+  border:1px solid var(--outline);
+  color:var(--text-dim);
+  font-family:inherit;font-size:14px;font-weight:500;
+  cursor:pointer;
+  transition:all .3s var(--ease);
+  flex:none;
+}
+.back-btn:hover{
+  background:var(--surface-hover);
+  color:var(--text);
+  border-color:var(--outline-strong);
+  transform:translateX(-3px);
+}
+.back-btn svg{width:19px;height:19px;fill:currentColor;transition:transform .3s var(--ease);}
+.back-btn:hover svg{transform:translateX(-2px);}
+
+.console-top-right{display:flex;align-items:center;gap:14px;}
+
+.console-status{
+  display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:500;
+  color:var(--text-dim);
+  padding:7px 14px;
+  border-radius:var(--r-full);
+  background:rgba(129,201,149,.08);
+  border:1px solid rgba(129,201,149,.2);
+}
+.console-status .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+}
+
+.console-clock{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  color:var(--text-mute);
+  letter-spacing:.5px;
+  padding:7px 13px;
+  border-radius:var(--r-full);
+  border:1px solid var(--outline);
+  background:var(--surface);
+}
+
+/* --- Shell --- */
+.console-shell{
+  max-width:1080px;
+  margin:0 auto;
+  padding:56px 40px 80px;
+}
+
+.console-hero{
+  margin-bottom:38px;
+  opacity:0;transform:translateY(22px);
+  transition:all .65s var(--spring) .28s;
+}
+body.panel-active .console-hero{opacity:1;transform:translateY(0);}
+
+.console-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 13px;
+  border-radius:var(--r-full);
+  background:rgba(138,180,248,.1);
+  border:1px solid rgba(138,180,248,.22);
+  color:var(--blue);
+  font-size:10.5px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.console-eyebrow .dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--blue);
+}
+
+.console-h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(28px,4.4vw,44px);
+  font-weight:700;
+  letter-spacing:-1.6px;
+  line-height:1.1;
+  margin-bottom:12px;
+}
+.console-h1 .grad{
+  background:linear-gradient(100deg,#8ab4f8,#c58af9 50%,#f28b82);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.console-sub{
+  font-size:15.5px;
+  color:var(--text-mute);
+  max-width:580px;
+  line-height:1.65;
+  font-weight:300;
+}
+
+/* --- Search --- */
+.console-search{
+  position:relative;
+  margin-bottom:34px;
+  opacity:0;transform:translateY(16px);
+  transition:all .55s var(--ease) .36s;
+}
+body.panel-active .console-search{opacity:1;transform:translateY(0);}
+
+.console-search svg{
+  position:absolute;
+  left:18px;top:50%;
+  transform:translateY(-50%);
+  width:17px;height:17px;
+  fill:var(--text-mute);
+  pointer-events:none;
+  transition:fill .3s;
+}
+.console-search input{
+  width:100%;
+  height:52px;
+  padding:0 60px 0 48px;
+  border-radius:16px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  color:var(--text);
+  font-family:inherit;
+  font-size:14.5px;
+  outline:none;
+  transition:all .32s var(--ease);
+}
+.console-search input::placeholder{color:var(--text-mute);}
+.console-search input:focus{
+  border-color:rgba(138,180,248,.5);
+  background:var(--surface-hover);
+  box-shadow:0 0 0 4px rgba(138,180,248,.09),0 8px 30px rgba(0,0,0,.35);
+}
+.console-search:focus-within svg{fill:var(--blue);}
+.console-search kbd{
+  position:absolute;
+  right:16px;top:50%;
+  transform:translateY(-50%);
+  padding:4px 9px;
+  border-radius:7px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--outline);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--text-mute);
+  pointer-events:none;
+}
+
+/* --- Stats --- */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:44px;
+}
+.stat{
+  padding:18px 20px;
+  border-radius:18px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  position:relative;
+  overflow:hidden;
+  opacity:0;transform:translateY(18px);
+  transition:all .55s var(--spring);
+}
+body.panel-active .stat{opacity:1;transform:translateY(0);}
+body.panel-active .stat:nth-child(1){transition-delay:.4s;}
+body.panel-active .stat:nth-child(2){transition-delay:.46s;}
+body.panel-active .stat:nth-child(3){transition-delay:.52s;}
+body.panel-active .stat:nth-child(4){transition-delay:.58s;}
+
+.stat:hover{
+  border-color:var(--outline-strong);
+  background:var(--surface-hover);
+}
+
+.stat-val{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:26px;font-weight:600;
+  letter-spacing:-1px;
+  background:linear-gradient(120deg,#e8eeff,#8ab4f8 70%,#c58af9);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1.15;
+}
+.stat-label{
+  font-size:10.5px;
+  color:var(--text-mute);
+  margin-top:5px;
+  letter-spacing:1.1px;
+  text-transform:uppercase;
+  font-weight:600;
+}
+
+/* --- Section label --- */
+.section-label{
+  display:flex;align-items:center;gap:12px;
+  margin:0 0 18px;
+  font-size:11px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--text-mute);
+  opacity:0;transform:translateY(10px);
+  transition:all .5s var(--ease);
+}
+body.panel-active .section-label{opacity:1;transform:translateY(0);}
+body.panel-active .section-label:nth-of-type(1){transition-delay:.4s;}
+body.panel-active .section-label:nth-of-type(2){transition-delay:.62s;}
+body.panel-active .section-label:nth-of-type(3){transition-delay:.88s;}
+
+.section-label::after{
+  content:'';
+  flex:1;height:1px;
+  background:linear-gradient(90deg,var(--outline-strong),transparent);
+}
+
+/* ============================================================
+   6. BIG CARDS
+   ============================================================ */
+.big-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-bottom:44px;
+}
+
+.big-card{
+  position:relative;
+  padding:26px;
+  border-radius:24px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:206px;
+  text-decoration:none;
+  color:var(--text);
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  opacity:0;
+  transform:translateY(30px) scale(.965);
+  transition:
+    opacity .6s var(--spring),
+    transform .6s var(--spring),
+    border-color .35s ease,
+    box-shadow .4s ease,
+    background .4s ease;
+}
+body.panel-active .big-card{opacity:1;transform:translateY(0) scale(1);}
+body.panel-active .big-card:nth-child(1){transition-delay:.46s;}
+body.panel-active .big-card:nth-child(2){transition-delay:.56s;}
+
+.big-card:hover{
+  transform:translateY(-5px) scale(1.018);
+  border-color:rgba(255,255,255,.2);
+  background:var(--surface-hover);
+  box-shadow:
+    0 28px 56px rgba(0,0,0,.55),
+    0 0 52px rgba(138,180,248,.14);
+}
+
+.big-glow{
+  position:absolute;
+  top:-60px;left:-60px;
+  width:220px;height:220px;
+  border-radius:50%;
+  filter:blur(64px);
+  opacity:.4;
+  pointer-events:none;
+  z-index:0;
+  transition:opacity .45s ease, transform .6s var(--ease);
+}
+.big-card:hover .big-glow{opacity:.62;transform:scale(1.15);}
+.big-workspace .big-glow{background:var(--blue);}
+.big-loans .big-glow{background:var(--purple);}
+
+.big-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:22px;
+  position:relative;z-index:2;
+}
+
+.big-icon{
+  width:54px;height:54px;flex:none;
+  border-radius:17px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .45s var(--spring), background .35s;
+  position:relative;
+  overflow:hidden;
+}
+.big-icon::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(140deg,rgba(255,255,255,.22),transparent 55%);
+  opacity:.6;
+}
+.big-icon svg{width:26px;height:26px;fill:#fff;position:relative;z-index:1;}
+.big-card:hover .big-icon{transform:rotate(-6deg) scale(1.1);}
+
+.big-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;
+  border-radius:var(--r-full);
+  background:rgba(129,201,149,.14);
+  border:1px solid rgba(129,201,149,.24);
+  color:var(--green);
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.1px;
+  white-space:nowrap;
+}
+.big-tag.purple{
+  background:rgba(197,138,249,.14);
+  border-color:rgba(197,138,249,.26);
+  color:var(--purple);
+}
+
+.big-text{position:relative;z-index:2;}
+.big-text h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;font-weight:600;
+  letter-spacing:-.6px;
+  margin-bottom:8px;
+}
+.big-text p{
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--text-dim);
+  max-width:88%;
+  font-weight:300;
+}
+
+.big-arrow{
+  position:absolute;
+  bottom:26px;right:26px;
+  width:42px;height:42px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--text);
+  z-index:3;
+  transition:all .45s var(--spring);
+}
+.big-arrow svg{width:18px;height:18px;fill:currentColor;}
+.big-card:hover .big-arrow{
+  transform:rotate(-45deg) scale(1.08);
+  background:var(--text);
+  color:var(--bg);
+  border-color:transparent;
+  box-shadow:0 0 26px rgba(255,255,255,.3);
+}
+
+/* ============================================================
+   7. SMALL CARDS
+   ============================================================ */
+.small-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:44px;
+}
+
+.small-card{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 18px;
+  border-radius:19px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  text-decoration:none;
+  color:inherit;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  opacity:0;
+  transform:translateY(20px);
+  transition:
+    opacity .5s var(--spring),
+    transform .5s var(--spring),
+    border-color .3s ease,
+    background .3s ease,
+    box-shadow .35s ease;
+}
+body.panel-active .small-card{opacity:1;transform:translateY(0);}
+body.panel-active .small-card:nth-child(1){transition-delay:.66s;}
+body.panel-active .small-card:nth-child(2){transition-delay:.71s;}
+body.panel-active .small-card:nth-child(3){transition-delay:.76s;}
+body.panel-active .small-card:nth-child(4){transition-delay:.81s;}
+body.panel-active .small-card:nth-child(5){transition-delay:.86s;}
+body.panel-active .small-card:nth-child(6){transition-delay:.91s;}
+
+.small-card:hover{
+  background:var(--surface-hover);
+  border-color:rgba(255,255,255,.16);
+  transform:translateY(-3px);
+  box-shadow:0 16px 34px rgba(0,0,0,.42);
+}
+
+.small-icon{
+  width:44px;height:44px;flex:none;
+  border-radius:14px;
+  display:grid;place-items:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .45s var(--spring), box-shadow .35s;
+  position:relative;
+  z-index:1;
+}
+.small-icon svg{width:21px;height:21px;fill:#fff;}
+.small-card:hover .small-icon{
+  transform:scale(1.12) rotate(-5deg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 20px rgba(0,0,0,.35);
+}
+
+.small-text{flex:1;min-width:0;position:relative;z-index:1;}
+.small-text h4{
+  font-size:14.5px;font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+  letter-spacing:-.2px;
+}
+.small-text p{
+  font-size:12.5px;
+  color:var(--text-mute);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.small-arrow{
+  width:22px;height:22px;flex:none;
+  display:grid;place-items:center;
+  color:var(--text-mute);
+  transition:transform .32s var(--ease),color .3s;
+  position:relative;z-index:1;
+}
+.small-arrow svg{width:14px;height:14px;fill:currentColor;}
+.small-card:hover .small-arrow{transform:translateX(4px);color:var(--text);}
+
+.m-blue{background:linear-gradient(135deg,#1a73e8,#8ab4f8);}
+.m-purple{background:linear-gradient(135deg,#7c3aed,#c58af9);}
+.m-gem{background:linear-gradient(135deg,#1a73e8,#c58af9 55%,#f28b82);}
+.m-red{background:linear-gradient(135deg,#dc2626,#f28b82);}
+.m-cyan{background:linear-gradient(135deg,#0891b2,#78d9ec);}
+.m-grey{background:linear-gradient(135deg,#4b5563,#a1a6b4);}
+.m-green{background:linear-gradient(135deg,#059669,#81c995);}
+.m-amber{background:linear-gradient(135deg,#d97706,#fdd663);}
+
+/* ============================================================
+   8. SHADOWFAST PANEL (inside console)
+   ============================================================ */
+.sf-panel{
+  position:relative;
+  padding:26px 28px;
+  border-radius:24px;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    linear-gradient(120deg,rgba(108,140,255,.10),rgba(197,138,249,.08) 50%,rgba(120,217,236,.07));
+  border:1px solid var(--outline-strong);
+  margin-bottom:44px;
+  opacity:0;transform:translateY(24px);
+  transition:all .6s var(--spring);
+}
+body.panel-active .sf-panel{opacity:1;transform:translateY(0);transition-delay:.92s;}
+
+.sf-panel-inner{
+  display:flex;align-items:center;gap:20px;
+  flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+
+.sf-logo{
+  width:56px;height:56px;flex:none;
+  border-radius:18px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#6c8cff,#c58af9);
+  box-shadow:0 10px 28px rgba(108,140,255,.4),inset 0 1px 0 rgba(255,255,255,.3);
+  transition:transform .5s var(--spring);
+}
+.sf-panel:hover .sf-logo{transform:rotate(-8deg) scale(1.06);}
+.sf-logo svg{width:28px;height:28px;fill:#fff;}
+
+.sf-copy{flex:1;min-width:180px;}
+.sf-copy h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:21px;font-weight:700;
+  letter-spacing:-.5px;
+  margin-bottom:3px;
+  background:linear-gradient(100deg,#ffffff,#c9d8ff 55%,#c58af9);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sf-copy p{
+  font-size:11px;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:var(--text-mute);
+  font-weight:600;
+}
+.sf-copy .sf-desc{
+  margin-top:9px;
+  font-size:13.5px;
+  letter-spacing:0;
+  text-transform:none;
+  font-weight:300;
+  color:var(--text-dim);
+  line-height:1.55;
+}
+
+.sf-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  height:42px;padding:0 20px;
+  border-radius:var(--r-full);
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--outline-strong);
+  color:var(--text);
+  font-family:inherit;font-size:13.5px;font-weight:600;
+  text-decoration:none;
+  transition:all .35s var(--ease);
+  flex:none;
+}
+.sf-cta:hover{
+  background:rgba(255,255,255,.14);
+  border-color:rgba(197,138,249,.5);
+  box-shadow:0 0 28px rgba(197,138,249,.28);
+  transform:translateY(-2px);
+}
+.sf-cta svg{width:15px;height:15px;fill:currentColor;transition:transform .3s var(--ease);}
+.sf-cta:hover svg{transform:translateX(3px);}
+
+/* ============================================================
+   9. CONSOLE FOOT
+   ============================================================ */
+.console-foot{
+  margin-top:46px;
+  padding-top:22px;
+  border-top:1px solid var(--outline);
+  display:flex;flex-wrap:wrap;gap:14px;
+  justify-content:space-between;
+  font-size:12.5px;
+  color:var(--text-mute);
+  opacity:0;
+  transition:opacity .5s var(--ease) 1.05s;
+}
+body.panel-active .console-foot{opacity:1;}
+.console-foot kbd{
+  padding:3px 7px;
+  border-radius:6px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:var(--text-dim);
+}
+
+/* Hidden by filter */
+.is-hidden{display:none !important;}
+
+/* ============================================================
+   10. RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .small-grid{grid-template-columns:repeat(2,1fr);}
+  .stats{grid-template-columns:repeat(2,1fr);}
+}
+
+@media (max-width:900px){
+  .header{padding:16px 24px;}
+  .header.scrolled{padding:10px 24px;}
+  .console-shell{padding:44px 24px 70px;}
+  .console-top{padding:12px 24px;}
+  .big-grid{gap:14px;}
+}
+
+@media (max-width:760px){
+  .hero{padding:120px 20px 70px;}
+  .header-divider{display:none;}
+  .sf-badge .sf-sub{display:none;}
+  .sf-badge{padding:6px 12px 6px 8px;}
+  
+  /* Center Footer in Portrait */
+  .footer{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    justify-content:center;
+    padding:0 24px 30px;
+  }
+  .footer-left {
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:12px;
+  }
+}
+
+@media (max-width:560px){
+  .header{padding:13px 16px;gap:10px;}
+  .header.scrolled{padding:9px 16px;}
+  .header-right .hbtn.ghost{display:none;}
+  .hbtn{height:36px;padding:0 14px;font-size:13px;}
+  
+  .brand-logo { width: 32px; height: 32px; }
+  .brand-logo-large { width: 36px; height: 36px; }
+  .brand-name{font-size:14px;}
+  
+  .sf-badge{display:none;}
+
+  .hero{padding:104px 18px 56px;}
+  .headline{
+    font-size:clamp(30px,10.5vw,46px);
+    letter-spacing:-1.6px;
+    margin-top:20px;
+  }
+  .caret{width:2.5px;margin-left:5px;}
+  .brandline{margin-top:26px;gap:8px;}
+  .pc{font-size:17px;}
+  .subtitle{margin-top:20px;font-size:14.5px;padding:0 4px;}
+  .console-wrap{margin-top:34px;width:100%;max-width:340px;}
+  .console-btn{width:100%;justify-content:center;padding:12px 14px;}
+  .cb-badge{display:none;}
+  .hint{font-size:12px;}
+  .strip{padding:0 16px 44px;gap:8px;}
+  .tag{padding:7px 13px;font-size:11.5px;}
+
+  /* --- Console mobile --- */
+  .console-top{padding:10px 14px;gap:10px;}
+  .console-clock{display:none;}
+  .console-status{padding:6px 11px;font-size:11px;}
+  .back-btn{height:36px;padding:0 13px 0 10px;font-size:13px;}
+  .console-shell{padding:28px 16px 56px;}
+
+  .console-hero{margin-bottom:22px;}
+  .console-h1{font-size:25px;letter-spacing:-1px;margin-bottom:8px;}
+  .console-sub{font-size:13.5px;}
+  .console-eyebrow{font-size:9.5px;padding:5px 11px;margin-bottom:12px;}
+
+  .console-search{margin-bottom:22px;}
+  .console-search input{height:46px;font-size:14px;border-radius:14px;padding:0 48px 0 42px;}
+  .console-search svg{left:15px;width:15px;height:15px;}
+  .console-search kbd{right:13px;}
+
+  .stats{grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:26px;}
+  .stat{padding:13px 14px;border-radius:15px;}
+  .stat-val{font-size:20px;}
+  .stat-label{font-size:9px;letter-spacing:.8px;}
+
+  .section-label{margin-bottom:12px;font-size:10px;letter-spacing:1.3px;}
+
+  /* Big cards → horizontal rows */
+  .big-grid{grid-template-columns:1fr;gap:10px;margin-bottom:26px;}
+  .big-card{
+    min-height:auto;
+    padding:14px;
+    border-radius:19px;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    gap:14px;
+  }
+  .big-top{margin:0;display:contents;}
+  .big-icon{width:44px;height:44px;border-radius:13px;flex:none;}
+  .big-icon svg{width:21px;height:21px;}
+  .big-tag{display:none;}
+  .big-text{flex:1;min-width:0;}
+  .big-text h3{font-size:16.5px;margin:0;letter-spacing:-.3px;}
+  .big-text p{display:none;}
+  .big-arrow{
+    position:static;
+    width:36px;height:36px;flex:none;
+    margin-left:auto;
+  }
+  .big-arrow svg{width:15px;height:15px;}
+  .big-glow{width:140px;height:140px;top:-40px;left:-40px;filter:blur(46px);}
+
+  /* Small cards → 2-col app grid */
+  .small-grid{grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:26px;}
+  .small-card{
+    flex-direction:column;
+    text-align:center;
+    justify-content:center;
+    padding:15px 9px;
+    border-radius:16px;
+    gap:9px;
+  }
+  .small-icon{width:40px;height:40px;border-radius:13px;}
+  .small-icon svg{width:19px;height:19px;}
+  .small-arrow{display:none;}
+  .small-text{flex:none;width:100%;}
+  .small-text h4{font-size:12.5px;line-height:1.25;white-space:normal;margin:0;}
+  .small-text p{display:none;}
+
+  /* ShadowFast panel */
+  .sf-panel{padding:18px;border-radius:19px;margin-bottom:26px;}
+  .sf-panel-inner{gap:14px;}
+  .sf-logo{width:44px;height:44px;border-radius:14px;}
+  .sf-logo svg{width:22px;height:22px;}
+  .sf-copy h3{font-size:17px;}
+  .sf-copy p{font-size:9.5px;letter-spacing:1.3px;}
+  .sf-copy .sf-desc{font-size:12.5px;margin-top:7px;}
+  .sf-cta{width:100%;justify-content:center;height:40px;font-size:13px;}
+
+  .console-foot{
+    margin-top:30px;padding-top:16px;
+    flex-direction:column;align-items:center;
+    gap:8px;text-align:center;font-size:11.5px;
+  }
+}
+
+@media (max-width:380px){
+  .headline{font-size:28px;letter-spacing:-1.2px;}
+  .console-h1{font-size:22px;}
+  .stat-val{font-size:18px;}
+  .small-text h4{font-size:11.5px;}
+  .brand-logo { width: 28px; height: 28px; }
+  .brand-logo-large { width: 32px; height: 32px; }
+  .pc { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  .ch{opacity:1 !important;transform:none !important;filter:none !important;}
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Dynamic SVG Gradients Definition -->
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <linearGradient id="gemini-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#8AB4F8" />
-                <stop offset="50%" stop-color="#C58AF9" />
-                <stop offset="100%" stop-color="#24C1E0" />
-            </linearGradient>
-        </defs>
-    </svg>
+<!-- ============ COLORFUL MESH BACKGROUND ============ -->
+<div class="bg-mesh" aria-hidden="true"></div>
 
-    <!-- Canvas Particle Background -->
-    <canvas id="bg-canvas"></canvas>
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div class="page" id="homePage">
 
-    <div class="app-wrapper">
-        <!-- SIDEBAR -->
-        <aside class="sidebar" id="sidebar">
-            <a href="#" class="sidebar-brand">
-                <img src="https://i.ibb.co/Pz9JyMxy/Chat-GPT-Image-Feb-13-2026-07-26-56-PM.png" alt="PlayCode Logo">
-                <span>PlayCode</span>
-            </a>
+  <header class="header" id="mainHeader">
+    <div class="header-left">
 
-            <nav class="nav-links">
-                <a href="#" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
-                <a href="https://playcodeindia.github.io/Google/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg> Deployments</a>
-                <a href="https://playcodeindia.github.io/Invest/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg> Investments</a>
-                <a href="https://playcodeindia.github.io/PlaycodeAi/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M19 3l-1.5 3.5L14 8l3.5 1.5L19 13l1.5-3.5L24 8l-3.5-1.5L19 3zm-7 2L8.5 12 5 13.5 8.5 15 12 22l3.5-7L19 13.5 15.5 12 12 5z"/></svg> AI Terminal</a>
-                <a href="https://playcodeindia.github.io/Support/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> Support Center</a>
-            </nav>
-        </aside>
+      <a href="#" class="brand" aria-label="PlaycodeX home">
+        <!-- Square Logo from same folder - Box removed -->
+        <img src="image340.png" alt="PlaycodeX" class="brand-logo">
+        <span class="brand-text">
+          <span class="brand-name">Playcode<b>X</b></span>
+        </span>
+      </a>
 
-        <!-- MAIN WRAPPER -->
-        <main class="main-wrapper" id="mainWrapper">
-            
-            <header class="top-bar">
-                <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu">
-                    <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-                </button>
-            </header>
+      <div class="header-divider" aria-hidden="true"></div>
 
-            <div class="content-container">
-                <div class="greeting-section">
-                    <h1 class="greeting-title" id="greetingText">System Online.</h1>
-                    <p class="greeting-subtitle">Google Playcode Portal</p>
-                </div>
+      <a href="https://playcodeindia.github.io/Support/" class="sf-badge" aria-label="ShadowFast — A Courier Company">
+        <span class="sf-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h9A1.5 1.5 0 0 1 15 6.5V8h2.6a2 2 0 0 1 1.7.95l1.4 2.3a2 2 0 0 1 .3 1.05V15a2 2 0 0 1-2 2h-.35a2.75 2.75 0 0 0-5.3 0h-2.7a2.75 2.75 0 0 0-5.3 0H4a2 2 0 0 1-2-2V7.5A1 1 0 0 1 3 6.5Zm12 3.5h3.2l-1.2-2H15v2ZM6.25 18.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Zm11 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"/>
+          </svg>
+        </span>
+        <span class="sf-text">
+          <span class="sf-name">ShadowFast</span>
+          <span class="sf-sub">A Courier Company</span>
+        </span>
+      </a>
 
-                <div class="launcher-section">
-                    <div class="section-header">
-                        <svg viewBox="0 0 24 24" width="28" height="28" fill="var(--accent-blue)"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
-                        Ecosystem Modules
-                    </div>
-                    
-                    <div class="app-grid">
-                        
-                        <!-- 1. Account Matrix (Modal) -->
-                        <button type="button" class="app-item matrix" onclick="openModal('account')">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-                            </div>
-                            <span class="app-label">Account<br>Matrix</span>
-                        </button>
-
-                        <!-- 2. Playcode Invest -->
-                        <a href="https://playcodeindia.github.io/Invest/" class="app-item invest">
-                            <div class="app-icon-container">
-                                <!-- Fixed absolute positioning for NEW badge -->
-                                <div class="badge-new">NEW</div>
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
-                            </div>
-                            <span class="app-label">Playcode<br>Invest</span>
-                        </a>
-
-                        <!-- 3. Code Generator -->
-                        <a href="https://playcodeindia.github.io/Google/" class="app-item code">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
-                            </div>
-                            <span class="app-label">Code<br>Generator</span>
-                        </a>
-
-                        <!-- 4. Gemini Terminal (Updated Sparkle Icon) -->
-                        <a href="https://playcodeindia.github.io/PlaycodeAi/" class="app-item gemini">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper">
-                                    <svg viewBox="0 0 24 24"><path d="M19 3l-1.5 3.5L14 8l3.5 1.5L19 13l1.5-3.5L24 8l-3.5-1.5L19 3zm-7 2L8.5 12 5 13.5 8.5 15 12 22l3.5-7L19 13.5 15.5 12 12 5z"/></svg>
-                                </div>
-                            </div>
-                            <span class="app-label">Gemini<br>Terminal</span>
-                        </a>
-
-                        <!-- 5. Video Engine -->
-                        <a href="https://playcodeindia.github.io/video/" class="app-item video">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg></div>
-                            </div>
-                            <span class="app-label">Video<br>Engine</span>
-                        </a>
-
-                        <!-- 6. Download App (Modal) -->
-                        <button type="button" class="app-item download" onclick="openModal('download')">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
-                            </div>
-                            <span class="app-label">Download<br>App</span>
-                        </button>
-
-                        <!-- 7. Quera Music (Ad Modal / Custom SVG) -->
-                        <button type="button" class="app-item quera" onclick="openModal('quera')">
-                            <div class="app-icon-container">
-                                <div class="badge-ad">AD</div>
-                                <div class="app-icon-wrapper">
-                                    <!-- CSS/SVG Recreated Logo -->
-                                    <svg viewBox="0 0 24 24" width="48" height="48" fill="white">
-                                        <rect x="5" y="10" width="2.5" height="4" rx="1.25" />
-                                        <rect x="9" y="7" width="2.5" height="10" rx="1.25" />
-                                        <rect x="13" y="3" width="2.5" height="18" rx="1.25" />
-                                        <rect x="17" y="7" width="2.5" height="10" rx="1.25" />
-                                        <rect x="21" y="10" width="2.5" height="4" rx="1.25" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <span class="app-label">Quera<br>Music</span>
-                        </button>
-
-                        <!-- 8. Privacy (Modal) -->
-                        <button type="button" class="app-item privacy" onclick="openModal('privacy')">
-                            <div class="app-icon-container">
-                                <div class="app-icon-wrapper"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
-                            </div>
-                            <span class="app-label">Privacy<br>Center</span>
-                        </button>
-
-                    </div>
-                </div>
-
-                <footer class="site-footer">
-                    &copy; 2026 PlayCode INDIA.
-                    <span>Design by Google</span>
-                </footer>
-            </div>
-        </main>
     </div>
 
-    <!-- UNIVERSAL MODAL SYSTEM -->
-    <div class="modal-overlay" id="universalModal">
-        <div class="modal-content" id="modalContent">
-            <!-- Modal Content Injected via JS -->
+    <div class="header-right">
+      <button class="hbtn ghost" onclick="openConsole()">Support</button>
+      <button class="hbtn primary" onclick="openConsole()">Sign in</button>
+    </div>
+  </header>
+
+  <main class="hero">
+
+    <div class="pill"><span class="pill-dot"></span> Enterprise Workspace</div>
+
+    <div class="brandline">
+      <!-- Square Logo from same folder - Box removed -->
+      <img src="image340.png" alt="PlaycodeX" class="brand-logo-large">
+      <span class="pc">Playcode <b>X</b></span>
+    </div>
+
+    <h1 class="headline" aria-label="PlaycodeX.in">
+      <span class="typed" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span>
+    </h1>
+
+    <p class="subtitle">
+      Access enterprise-grade logic, manage digital balances, and deploy exclusive
+      architectures securely — managed by <strong>ShadowFast</strong>.
+    </p>
+
+    <div class="console-wrap">
+      <button class="console-btn" id="consoleBtn" onclick="openConsole()">
+        <span class="cb-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </span>
+        <span class="cb-label">Access console</span>
+        <span class="cb-badge">Pro</span>
+        <span class="cb-mic">
+          <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+        </span>
+      </button>
+    </div>
+
+    <p class="hint">Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to launch the console</p>
+
+  </main>
+
+  <div class="strip">
+    <span class="tag"><span class="tag-dot"></span> 99.99% Uptime SLA</span>
+    <span class="tag">End-to-End Encrypted</span>
+    <span class="tag">ShadowFast Logistics Ready</span>
+    <span class="tag">ISO 27001 Aligned</span>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span>&copy; 2026 <strong>PlaycodeX</strong>. All rights reserved.</span>
+      <span class="footer-sf">
+        <b>ShadowFast</b><span>A Courier Company</span>
+      </span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+      <span>Managed By ShadowFast - A Courier Company</span>
+      <span>Ownership : <strong>PlaycodeX</strong></span>
+      <span>Built for scale · <strong>v4.0</strong></span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     CONSOLE DASHBOARD
+     ============================================================ -->
+<div class="console-page" id="consolePage" role="dialog" aria-modal="true" aria-label="PlaycodeX Console">
+
+  <div class="console-top">
+    <button class="back-btn" onclick="closeConsole()">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      Back
+    </button>
+
+    <div class="console-top-right">
+      <div class="console-clock" id="clock">--:--:--</div>
+      <div class="console-status"><span class="dot"></span> Console · Online</div>
+    </div>
+  </div>
+
+  <div class="console-shell">
+
+    <div class="console-hero">
+      <div class="console-eyebrow"><span class="dot"></span> Module Browser</div>
+      <h1 class="console-h1">Choose your <span class="grad">workspace</span>.</h1>
+      <p class="console-sub">Two core hubs power your account — everything else plugs straight into them.</p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="console-search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
+      <input type="text" id="searchInput" placeholder="Search modules, tools, services…" autocomplete="off" spellcheck="false">
+      <kbd>/</kbd>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val" data-count="8" data-suffix="">0</div>
+        <div class="stat-label">Modules</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" data-count="99.99" data-suffix="%" data-decimals="2">0</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" data-count="42" data-suffix="ms">0</div>
+        <div class="stat-label">Latency</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" data-count="128" data-suffix="K+">0</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+    </div>
+
+    <!-- ===== 01 CORE ===== -->
+    <div class="section-label">01 · Core Modules</div>
+
+    <div class="big-grid">
+
+      <a href="https://playcodeindia.github.io/Balance/"
+         class="big-card big-workspace"
+         data-name="workspace balance transactions operations wallet">
+        <div class="big-glow"></div>
+        <div class="big-top">
+          <div class="big-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-8.5-9L2 6v2h19V6l-9.5-5z"/></svg>
+          </div>
+          <span class="big-tag">Active</span>
         </div>
+        <div class="big-text">
+          <h3>Workspace</h3>
+          <p>Manage balance, transactions and daily operations seamlessly.</p>
+        </div>
+        <div class="big-arrow">
+          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </div>
+      </a>
+
+      <a href="https://playcodeindia.github.io/Loans/"
+         class="big-card big-loans"
+         data-name="loans credit emi finance lending">
+        <div class="big-glow"></div>
+        <div class="big-top">
+          <div class="big-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/></svg>
+          </div>
+          <span class="big-tag purple">New</span>
+        </div>
+        <div class="big-text">
+          <h3>Loans</h3>
+          <p>Instant credit lines, EMI plans and flexible financial services.</p>
+        </div>
+        <div class="big-arrow">
+          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </div>
+      </a>
+
     </div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // ----------------------------------------------------------------------
-        // Sidebar Toggle Logic (Bug-Free)
-        // ----------------------------------------------------------------------
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const mainWrapper = document.getElementById('mainWrapper');
-        
-        const isMobile = () => window.innerWidth <= 1024;
+    <!-- ===== 02 INTEGRATIONS ===== -->
+    <div class="section-label">02 · Integrations</div>
 
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menuBtn.classList.toggle('active');
-            
-            if (isMobile()) {
-                sidebar.classList.toggle('active');
-            } else {
-                sidebar.classList.toggle('hidden');
-                mainWrapper.classList.toggle('expanded');
-            }
-        });
+    <div class="small-grid">
 
-        // Outside click to close sidebar on mobile
-        document.addEventListener('click', (e) => {
-            if (isMobile() && sidebar.classList.contains('active')) {
-                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                    menuBtn.classList.remove('active');
-                }
-            }
-        });
+      <a href="https://playcodeindia.github.io/Google/" class="small-card" data-name="code generator deployments pipelines developer">
+        <div class="small-icon m-purple">
+          <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        </div>
+        <div class="small-text"><h4>Code Generator</h4><p>Deployments &amp; pipelines</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
 
-        // Layout reset on window resize to prevent glitches
-        window.addEventListener('resize', () => {
-            if (!isMobile()) {
-                sidebar.classList.remove('active');
-                if(!sidebar.classList.contains('hidden')) {
-                    mainWrapper.classList.remove('expanded');
-                }
-            }
-        });
+      <a href="https://playcodeindia.github.io/Invest/" class="small-card" data-name="invest portfolio markets trading stocks">
+        <div class="small-icon m-blue">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+        </div>
+        <div class="small-text"><h4>Playcode Invest</h4><p>Portfolio &amp; markets</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
 
-        // ----------------------------------------------------------------------
-        // Dynamic Time Greeting
-        // ----------------------------------------------------------------------
-        const updateGreeting = () => {
-            const hour = new Date().getHours();
-            const greetingElement = document.getElementById('greetingText');
-            if (hour < 12) greetingElement.textContent = "Good Morning, Commander.";
-            else if (hour < 18) greetingElement.textContent = "Good Afternoon, Commander.";
-            else greetingElement.textContent = "Good Evening, Commander.";
-        };
-        updateGreeting();
+      <a href="https://playcodeindia.github.io/PlaycodeAi/" class="small-card" data-name="gemini terminal ai assistant workspace">
+        <div class="small-icon m-gem">
+          <svg viewBox="0 0 24 24"><path d="M19 3l-1.5 3.5L14 8l3.5 1.5L19 13l1.5-3.5L24 8l-3.5-1.5L19 3zm-7 2L8.5 12 5 13.5 8.5 15 12 22l3.5-7L19 13.5 15.5 12 12 5z"/></svg>
+        </div>
+        <div class="small-text"><h4>Gemini Terminal</h4><p>AI workspace</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
 
-        // ----------------------------------------------------------------------
-        // Advanced Modal Logic & Content Routing
-        // ----------------------------------------------------------------------
-        const universalModal = document.getElementById('universalModal');
-        const modalContent = document.getElementById('modalContent');
+      <a href="https://playcodeindia.github.io/video/" class="small-card" data-name="video engine media tools editor streaming">
+        <div class="small-icon m-red">
+          <svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+        </div>
+        <div class="small-text"><h4>Video Engine</h4><p>Media tools</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
 
-        function closeModal() {
-            universalModal.classList.remove('active');
+      <a href="https://playcodeindia.github.io/Support/" class="small-card" data-name="support center help documentation contact">
+        <div class="small-icon m-grey">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+        </div>
+        <div class="small-text"><h4>Support Center</h4><p>Help &amp; documentation</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
+
+      <a href="https://playcodeindia.github.io/Privacypolicies/" class="small-card" data-name="privacy center policies security legal">
+        <div class="small-icon m-cyan">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        </div>
+        <div class="small-text"><h4>Privacy Center</h4><p>Policies &amp; security</p></div>
+        <div class="small-arrow"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></div>
+      </a>
+
+    </div>
+
+    <!-- ===== 03 SHADOWFAST ===== -->
+    <div class="section-label">03 · Partner Network</div>
+
+    <div class="sf-panel" data-name="shadowfast courier logistics shipping delivery partner">
+      <div class="sf-panel-inner">
+        <div class="sf-logo">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h9A1.5 1.5 0 0 1 15 6.5V8h2.6a2 2 0 0 1 1.7.95l1.4 2.3a2 2 0 0 1 .3 1.05V15a2 2 0 0 1-2 2h-.35a2.75 2.75 0 0 0-5.3 0h-2.7a2.75 2.75 0 0 0-5.3 0H4a2 2 0 0 1-2-2V7.5A1 1 0 0 1 3 6.5Zm12 3.5h3.2l-1.2-2H15v2ZM6.25 18.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Zm11 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"/>
+          </svg>
+        </div>
+        <div class="sf-copy">
+          <h3>ShadowFast</h3>
+          <p>A Courier Company</p>
+          <div class="sf-desc">Real-time shipment tracking, smart routing and same-day delivery lanes — fully integrated with your PlaycodeX workspace.</div>
+        </div>
+        <a href="https://playcodeindia.github.io/Support/" class="sf-cta">
+          Track shipment
+          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="console-foot">
+      <span>&copy; 2026 PlaycodeX · ShadowFast</span>
+      <span>Press <kbd>Esc</kbd> to exit · <kbd>/</kbd> to search</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   A. TYPING ANIMATION (Repeats repeatedly)
+   ============================================================ */
+(function initTyping(){
+  const target = document.getElementById('typed');
+  if (!target) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const PARTS = [
+    { text: 'Playcode', cls: 'w' },
+    { text: 'X',        cls: 'x' },
+    { text: '.in',      cls: 'in' }
+  ];
+
+  const queue = [];
+  PARTS.forEach(part => {
+    Array.from(part.text).forEach(ch => queue.push({ ch: ch, cls: part.cls }));
+  });
+
+  if (reduce){
+    target.innerHTML = '';
+    queue.forEach(item => {
+      const span = document.createElement('span');
+      span.className = 'ch ' + item.cls + ' show';
+      span.textContent = item.ch;
+      target.appendChild(span);
+    });
+    return;
+  }
+
+  let i = 0;
+
+  function typeNext(){
+    if (i >= queue.length) {
+      // Wait 2.5 seconds before restarting the typing loop
+      setTimeout(() => {
+        target.innerHTML = '';
+        i = 0;
+        typeNext();
+      }, 2500);
+      return;
+    }
+
+    const item = queue[i];
+    const span = document.createElement('span');
+    span.className = 'ch ' + item.cls;
+    span.textContent = item.ch;
+    target.appendChild(span);
+
+    // force reflow then reveal
+    void span.offsetWidth;
+    requestAnimationFrame(() => span.classList.add('show'));
+
+    i++;
+
+    let delay = 85 + Math.random() * 65;
+    if (item.ch === '.') delay = 210;
+    if (item.cls === 'x') delay = 260;
+
+    setTimeout(typeNext, delay);
+  }
+
+  // start after hero fade-in
+  setTimeout(typeNext, 620);
+})();
+
+/* ============================================================
+   B. CONSOLE OPEN / CLOSE
+   ============================================================ */
+const body = document.body;
+const consolePage = document.getElementById('consolePage');
+
+let countersDone = false;
+
+function animateCounters(){
+  if (countersDone) return;
+  countersDone = true;
+
+  document.querySelectorAll('.stat-val').forEach(el => {
+    const target = parseFloat(el.dataset.count || '0');
+    const suffix = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const duration = 1400;
+    const start = performance.now();
+
+    function tick(now){
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = val.toFixed(decimals) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toFixed(decimals) + suffix;
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+function openConsole(){
+  body.classList.add('panel-active');
+  body.classList.add('locked');
+  if (consolePage) consolePage.scrollTop = 0;
+  setTimeout(animateCounters, 650);
+  setTimeout(() => {
+    const input = document.getElementById('searchInput');
+    if (input) input.focus({ preventScroll:true });
+  }, 700);
+}
+
+function closeConsole(){
+  body.classList.remove('panel-active');
+  setTimeout(() => body.classList.remove('locked'), 520);
+}
+
+window.openConsole = openConsole;
+window.closeConsole = closeConsole;
+
+/* ============================================================
+   C. KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  const active = body.classList.contains('panel-active');
+
+  if (e.key === 'Escape' && active){
+    closeConsole();
+    return;
+  }
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+    e.preventDefault();
+    active ? closeConsole() : openConsole();
+    return;
+  }
+
+  // "/" focuses search inside console
+  if (e.key === '/' && active){
+    const input = document.getElementById('searchInput');
+    if (input && document.activeElement !== input){
+      e.preventDefault();
+      input.focus();
+    }
+  }
+});
+
+/* ============================================================
+   D. SEARCH / FILTER
+   ============================================================ */
+(function initSearch(){
+  const input = document.getElementById('searchInput');
+  if (!input) return;
+
+  const targets = Array.from(document.querySelectorAll('[data-name]'));
+  const sections = Array.from(document.querySelectorAll('.section-label'));
+
+  function apply(){
+    const q = input.value.trim().toLowerCase();
+
+    targets.forEach(el => {
+      const hay = (el.dataset.name || '') + ' ' + el.textContent.toLowerCase();
+      const match = !q || hay.indexOf(q) !== -1;
+      el.classList.toggle('is-hidden', !match);
+    });
+
+    // hide empty section labels
+    sections.forEach(label => {
+      let node = label.nextElementSibling;
+      let hasVisible = false;
+      while (node && !node.classList.contains('section-label')){
+        if (node.matches && node.matches('[data-name]') && !node.classList.contains('is-hidden')){
+          hasVisible = true;
+          break;
         }
+        node = node.nextElementSibling;
+      }
+      label.classList.toggle('is-hidden', !hasVisible);
+    });
+  }
 
-        universalModal.addEventListener('click', (e) => {
-            if(e.target === universalModal) closeModal();
-        });
+  input.addEventListener('input', apply);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape'){
+      input.value = '';
+      apply();
+      input.blur();
+    }
+  });
+})();
 
-        function openModal(type) {
-            let html = '';
-            const closeBtnHtml = `<button class="close-modal-btn" onclick="closeModal()"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>`;
-            
-            if (type === 'account') {
-                html = closeBtnHtml + `
-                    <div style="text-align: center; margin-bottom: 32px;">
-                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#4285F4" style="margin-bottom: 16px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Account Routing</h3>
-                        <p style="color: var(--text-secondary); font-size: 15px;">Select an operational path to proceed securely.</p>
-                    </div>
-                    <a href="https://playcodeindia.github.io/Balance/" class="modal-action-btn" style="color: #34A853;">
-                        <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-8.5-9L2 6v2h19V6l-9.5-5z"/></svg>
-                        <div class="modal-text-content">
-                            <h4 style="color: white;">PlayCode Workspace</h4>
-                            <p>Manage Balance & Operations</p>
-                        </div>
-                    </a>
-                    <a href="https://playcodeindia.github.io/Loans/" class="modal-action-btn" style="color: #FBBC05;">
-                        <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/></svg>
-                        <div class="modal-text-content">
-                            <h4 style="color: white;">PlayCode Loans</h4>
-                            <p>Access Financial Services</p>
-                        </div>
-                    </a>
-                `;
-            } 
-            else if (type === 'download') {
-                html = closeBtnHtml + `
-                    <div style="text-align: center; margin-bottom: 32px;">
-                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#06b6d4" style="margin-bottom: 16px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Download PlayCode</h3>
-                        <p style="color: var(--text-secondary); font-size: 15px;">Choose the native installer optimized for your machine specs.</p>
-                    </div>
-                    <a href="https://drive.usercontent.google.com/download?id=1N5FuREWgiEhofgVOksYsKSQVwd4B12XR&export=download&authuser=0" target="_blank" class="modal-action-btn" style="color: #4285F4;">
-                        <svg viewBox="0 0 24 24"><path d="M20 18v-4h-2v4H6v-4H4v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM12 14l5-5h-3V4h-4v5H7l5 5z"/></svg>
-                        <div class="modal-text-content">
-                            <h4 style="color: white;">Setup.exe Installer</h4>
-                            <p>Standard Install (97 MB)</p>
-                        </div>
-                    </a>
-                    <a href="https://drive.usercontent.google.com/download?id=1ojn6V1pq7HVs0UcK42w3YYrYKEscdaeD&export=download&authuser=0" target="_blank" class="modal-action-btn" style="color: #a1a1aa;">
-                        <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
-                        <div class="modal-text-content">
-                            <h4 style="color: white;">Portable Edition</h4>
-                            <p>No Install Required (140 MB)</p>
-                        </div>
-                    </a>
-                `;
-            }
-            else if (type === 'quera') {
-                html = closeBtnHtml + `
-                    <div style="text-align: center; margin-bottom: 32px;">
-                        <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 24px; background: linear-gradient(135deg, #00c6ff, #0072ff); display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(0,198,255,0.4);">
-                            <svg viewBox="0 0 24 24" width="36" height="36" fill="white">
-                                <rect x="5" y="10" width="2.5" height="4" rx="1.25" />
-                                <rect x="9" y="7" width="2.5" height="10" rx="1.25" />
-                                <rect x="13" y="3" width="2.5" height="18" rx="1.25" />
-                                <rect x="17" y="7" width="2.5" height="10" rx="1.25" />
-                                <rect x="21" y="10" width="2.5" height="4" rx="1.25" />
-                            </svg>
-                        </div>
-                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Quera Music</h3>
-                        <p style="color: var(--text-secondary); font-size: 15px;">Experience the next generation of audio streaming.</p>
-                    </div>
-                    <a href="https://queraindia.github.io/" target="_blank" class="modal-action-btn" style="color: #00c6ff; justify-content: center; text-align: center;">
-                        <h4 style="color: white; margin: 0; width: 100%;">Visit Quera Music</h4>
-                    </a>
-                    <div style="text-align: center; margin-top: 16px; font-size: 12px; color: var(--text-tertiary);">Sponsored Content</div>
-                `;
-            }
-            else if (type === 'privacy') {
-                html = closeBtnHtml + `
-                    <div style="text-align: center; margin-bottom: 32px;">
-                        <svg viewBox="0 0 24 24" width="48" height="48" fill="#a1a1aa" style="margin-bottom: 16px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                        <h3 style="font-family: var(--font-display); font-size: 28px; margin-bottom: 8px;">Privacy Center</h3>
-                        <p style="color: var(--text-secondary); font-size: 15px;">Your data is encrypted and managed under strict security protocols.</p>
-                    </div>
-                    <a href="https://playcodeindia.github.io/Privacypolicies/" class="modal-action-btn" style="color: #fff;">
-                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                        <div class="modal-text-content">
-                            <h4 style="color: white;">Privacy Policies</h4>
-                            <p>Read our full documentation</p>
-                        </div>
-                    </a>
-                `;
-            }
+/* ============================================================
+   E. LIVE CLOCK
+   ============================================================ */
+(function initClock(){
+  const el = document.getElementById('clock');
+  if (!el) return;
 
-            modalContent.innerHTML = html;
-            universalModal.classList.add('active');
-        }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
 
-        // ----------------------------------------------------------------------
-        // Enterprise Grade Particle Simulation Engine (Fills Code Size & Looks Great)
-        // ----------------------------------------------------------------------
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, particles = [];
-        
-        // Settings for the simulation
-        const CONFIG = {
-            particleCount: window.innerWidth < 768 ? 40 : 80,
-            connectionDistance: 160,
-            baseColor: '255, 255, 255', // White transparent dots
-            lineColor: '100, 140, 255', // Subtle blue for the web
-            speedMultiplier: 0.3
-        };
+  function tick(){
+    const d = new Date();
+    el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 
-        function resize() { 
-            width = canvas.width = window.innerWidth; 
-            height = canvas.height = window.innerHeight; 
-        }
-        
-        window.addEventListener('resize', () => {
-            resize();
-            initParticles(); // Reinit on resize to distribute evenly
-        });
-        
-        resize();
+/* ============================================================
+   F. HEADER SCROLL STATE
+   ============================================================ */
+(function initHeaderScroll(){
+  const header = document.getElementById('mainHeader');
+  if (!header) return;
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width; 
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * CONFIG.speedMultiplier; 
-                this.vy = (Math.random() - 0.5) * CONFIG.speedMultiplier;
-                this.radius = Math.random() * 1.5 + 0.5;
-            }
-            update() {
-                // Move particle
-                this.x += this.vx; 
-                this.y += this.vy;
-                
-                // Bounce off edges smoothly
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${CONFIG.baseColor}, 0.2)`; 
-                ctx.fill();
-            }
-        }
+  let ticking = false;
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < CONFIG.particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      if (window.scrollY > 24) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+      ticking = false;
+    });
+  }
 
-        initParticles();
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            
-            // Render Connections (O(N^2) complexity, kept small for performance)
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < CONFIG.connectionDistance) {
-                        // Opacity scales based on distance
-                        const opacity = (1 - (dist / CONFIG.connectionDistance)) * 0.15;
-                        ctx.beginPath(); 
-                        ctx.strokeStyle = `rgba(${CONFIG.lineColor}, ${opacity})`;
-                        ctx.lineWidth = 1; 
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y); 
-                        ctx.stroke();
-                    }
-                }
-            }
-            
-            // Render and update particles
-            particles.forEach(p => { 
-                p.update(); 
-                p.draw(); 
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        
-        // Start simulation
-        requestAnimationFrame(animate);
-        
-    </script>
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+})();
+</script>
 </body>
 </html>
-
